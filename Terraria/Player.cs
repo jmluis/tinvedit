@@ -248,8 +248,7 @@ namespace TerrariaInvEdit.Terraria
                             TerrariaVersion = reader.ReadInt32();
                             if (TerrariaVersion != Constants.TERRARIA_RELEASE)
                             {
-                                MessageBox.Show("Only for Terraria " + Constants.TERRARIA_STRING + ". Not " + TerrariaVersion, "Failed to load");
-                                return false;
+                                MessageBox.Show("This version of the editor was optimized for " + Constants.TERRARIA_STRING + ". It may not function properly with other versions of Terraria. Careful!", "WARNING");
                             }
                             // Some terraria magic for relogic files
                             MagicNumber = reader.ReadUInt64();
