@@ -178,6 +178,7 @@ namespace TerrariaInvEdit.UI.Forms
             AddMiscDye(PPlayer);
             AddPiggyBank(PPlayer);
             AddPiggyBank2(PPlayer);
+            AddPiggyBank3(PPlayer);
             AddBuffs(PPlayer);
         }
         #endregion
@@ -355,6 +356,30 @@ namespace TerrariaInvEdit.UI.Forms
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
+                tempNode.Nodes.Add(tempNode2);
+            }
+        }
+
+        private void AddPiggyBank3(Player player)
+        {
+            TreeNode tempNode = new TreeNode();
+            TreeNode tempNode2 = new TreeNode();
+
+            tempNode = new TreeNode("???");
+            tempNode.Tag = player.Bank3;
+            tempNode.Name = "piggyNode3";
+            treeInv.Nodes.Add(tempNode);
+
+            foreach (Item item in player.Bank3)
+            {
+                string prefix;
+                if (item.Prefix == 0)
+                    prefix = "";
+                else
+                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2.Tag = item;
+                tempNode2.Tag = "item";
                 tempNode.Nodes.Add(tempNode2);
             }
         }
@@ -1100,15 +1125,17 @@ namespace TerrariaInvEdit.UI.Forms
                 {
                     switch (node.Name.ToLower())
                     {
-                        case "piggynode":
-                            return;
                         case "armornode":
                             return;
                         case "invnode":
                             return;
                         case "ammonode":
                             return;
+                        case "piggynode":
+                            return;
                         case "piggynode2":
+                            return;
+                        case "piggynode3":
                             return;
                         case "dyenode":
                             return;

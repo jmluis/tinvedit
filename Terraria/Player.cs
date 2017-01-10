@@ -33,10 +33,12 @@ namespace TerrariaInvEdit.Terraria
 
         public bool ExtraAccessory;
         public int TaxMoney;
+        public bool DownedDD2EventAnyDifficulty;
         public byte SkinVariant;
 
         public int[] DPadRadialBindings = new int[4];
         public int[] BuilderAccStatus = new int[10];
+        public int BartenderQuestLog;
         // endconfusion
 
         public bool IsMale { get { return SkinVariant < 4; } }
@@ -61,6 +63,7 @@ namespace TerrariaInvEdit.Terraria
         public Item[] MiscDye = new Item[5];
         public Item[] Bank = new Item[40];
         public Item[] Bank2 = new Item[40];
+        public Item[] Bank3 = new Item[40]; // ???
         public Item[] Purse = new Item[4];
         public Item[] Ammo = new Item[4];
         public Buff[] Buffs = new Buff[22];
@@ -89,15 +92,13 @@ namespace TerrariaInvEdit.Terraria
 
         protected virtual void OnLoaded(EventArgs e)
         {
-            if (PlayerLoaded != null)
-                PlayerLoaded(this, e);
+            PlayerLoaded?.Invoke(this, e);
             Loaded = true;
         }
 
         protected virtual void OnSaved(EventArgs e)
         {
-            if (PlayerSaved != null)
-                PlayerSaved(this, e);
+            PlayerSaved?.Invoke(this, e);
         }
 
         private static bool DecryptFile(string inputFile, string outputFile)
@@ -249,6 +250,7 @@ namespace TerrariaInvEdit.Terraria
                             if (TerrariaVersion != Constants.TERRARIA_RELEASE)
                             {
                                 MessageBox.Show("This version of the editor was optimized for " + Constants.TERRARIA_STRING + ". It may not function properly with other versions of Terraria. Careful!", "WARNING");
+                                return false;
                             }
                             // Some terraria magic for relogic files
                             MagicNumber = reader.ReadUInt64();
@@ -291,6 +293,7 @@ namespace TerrariaInvEdit.Terraria
                             if (MP <= 0)
                                 MP = MaxMP;
                             ExtraAccessory = reader.ReadBoolean();
+                            DownedDD2EventAnyDifficulty = reader.ReadBoolean();
                             TaxMoney = reader.ReadInt32();
                             HairColor = Color.FromArgb(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
                             SkinColor = Color.FromArgb(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
@@ -488,6 +491,16 @@ namespace TerrariaInvEdit.Terraria
                                     Index = i
                                 };
                             }
+                            for (int i = 0; i < Bank3.Length; ++i)
+                            {
+                                Bank3[i] = new Item
+                                {
+                                    ItemID = reader.ReadInt32(),
+                                    Stack = reader.ReadInt32(),
+                                    Prefix = reader.ReadByte(),
+                                    Index = i
+                                };
+                            }
 
                             #endregion
                             #region Buffregion
@@ -534,6 +547,7 @@ namespace TerrariaInvEdit.Terraria
                             {
                                 BuilderAccStatus[i] = reader.ReadInt32();
                             }
+                            BartenderQuestLog = reader.ReadInt32();
                             #endregion
                             reader.Close();
                         }
@@ -623,6 +637,7 @@ namespace TerrariaInvEdit.Terraria
                         writer.Write(MaxMP);
 
                         writer.Write(ExtraAccessory);
+                        writer.Write(DownedDD2EventAnyDifficulty);
                         writer.Write(TaxMoney);
 
                         writer.Write(HairColor.R);
@@ -651,10 +666,7 @@ namespace TerrariaInvEdit.Terraria
                         for (int i = 0; i < 20; i++)
                         {
                             if (Armor[i].ItemID == 0)
-                            {
-                                Armor[i].ItemID = 0;
                                 Armor[i].Prefix = 0;
-                            }
                             writer.Write(Armor[i].ItemID);
                             writer.Write(Armor[i].Prefix);
                         }
@@ -662,10 +674,7 @@ namespace TerrariaInvEdit.Terraria
                         for (int i = 0; i < 10; i++)
                         {
                             if (Dye[i].ItemID == 0)
-                            {
-                                Dye[i].ItemID = 0;
                                 Dye[i].Prefix = 0;
-                            }
                             writer.Write(Dye[i].ItemID);
                             writer.Write(Dye[i].Prefix);
                         }
@@ -674,7 +683,6 @@ namespace TerrariaInvEdit.Terraria
                             if (Inventory[j].ItemID == 0)
                             {
                                 Inventory[j].Stack = 0;
-                                Inventory[j].ItemID = 0;
                                 Inventory[j].Prefix = 0;
                                 Inventory[j].IsFavorite = false;
                             }
@@ -688,7 +696,6 @@ namespace TerrariaInvEdit.Terraria
                             if (Purse[i].ItemID == 0)
                             {
                                 Purse[i].Stack = 0;
-                                Purse[i].ItemID = 0;
                                 Purse[i].Prefix = 0;
                                 Purse[i].IsFavorite = false;
                             }
@@ -702,7 +709,6 @@ namespace TerrariaInvEdit.Terraria
                             if (Ammo[i].ItemID == 0)
                             {
                                 Ammo[i].Stack = 0;
-                                Ammo[i].ItemID = 0;
                                 Ammo[i].Prefix = 0;
                                 Ammo[i].IsFavorite = false;
                             }
@@ -713,6 +719,10 @@ namespace TerrariaInvEdit.Terraria
                         }
                         for (int i = 0; i < 5; i++)
                         {
+                            if (MiscEquip[i].ItemID == 0)
+                                MiscEquip[i].Prefix = 0;
+                            if (MiscDye[i].ItemID == 0)
+                                MiscDye[i].Prefix = 0;
                             writer.Write(MiscEquip[i].ItemID);
                             writer.Write(MiscEquip[i].Prefix);
                             writer.Write(MiscDye[i].ItemID);
@@ -723,7 +733,6 @@ namespace TerrariaInvEdit.Terraria
                             if (Bank[k].ItemID == 0)
                             {
                                 Bank[k].Stack = 0;
-                                Bank[k].ItemID = 0;
                                 Bank[k].Prefix = 0;
                             }
                             writer.Write(Bank[k].ItemID);
@@ -735,12 +744,22 @@ namespace TerrariaInvEdit.Terraria
                             if (Bank2[k].ItemID == 0)
                             {
                                 Bank2[k].Stack = 0;
-                                Bank2[k].ItemID = 0;
                                 Bank2[k].Prefix = 0;
                             }
                             writer.Write(Bank2[k].ItemID);
                             writer.Write(Bank2[k].Stack);
                             writer.Write(Bank2[k].Prefix);
+                        }
+                        for (int k = 0; k < 40; k++)
+                        {
+                            if (Bank3[k].ItemID == 0)
+                            {
+                                Bank3[k].Stack = 0;
+                                Bank3[k].Prefix = 0;
+                            }
+                            writer.Write(Bank3[k].ItemID);
+                            writer.Write(Bank3[k].Stack);
+                            writer.Write(Bank3[k].Prefix);
                         }
                         for (int i = 0; i < 22; i++)
                         {
@@ -778,6 +797,7 @@ namespace TerrariaInvEdit.Terraria
                         {
                             writer.Write(BuilderAccStatus[i]);
                         }
+                        writer.Write(BartenderQuestLog);
                         #endregion
                         writer.Close();
                     }

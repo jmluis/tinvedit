@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections;
-using System.Windows.Forms;
-using System.Linq;
+﻿using System.Windows.Forms;
 using TerrariaInvEdit.Tools;
 using System.Drawing;
 
