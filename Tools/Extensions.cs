@@ -17,9 +17,9 @@ namespace TerrariaInvEdit.Tools
         internal static void AddComboBoxPrefixes(ComboBox comboPrefix)
         {
             comboPrefix.Items.Clear();
-            for (int i = 0; i < Constants.PrefixNames.Count; i++)
+            for (int i = 0; i < Constants.Prefixes.Count; i++)
             {
-                comboPrefix.Items.Add(Constants.PrefixNames[i]);
+                comboPrefix.Items.Add(Constants.Prefixes[i]);
             }
         }
 
@@ -35,7 +35,7 @@ namespace TerrariaInvEdit.Tools
         public static void AddComboBoxBuffs(ComboBox box)
         {
             box.Items.Clear();
-            foreach (KeyValuePair<int, string> kvp in Constants.BuffNames)
+            foreach (KeyValuePair<int, Buff> kvp in Constants.Buffs)
             {
                 if (kvp.Key == 0)
                 {

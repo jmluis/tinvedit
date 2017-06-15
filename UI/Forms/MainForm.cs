@@ -41,6 +41,7 @@ namespace TerrariaInvEdit.UI.Forms
             this.Height = (int)(270 * (dpiY / 100)) + 10;
             pbItem.SizeMode = PictureBoxSizeMode.Zoom;
             this.Data = ZipFile.Read(new MemoryStream(Properties.Resources.Data));
+            Constants.Initialize(@"D:\steamapps\common\Terraria");
         }
         #endregion
 
@@ -78,7 +79,7 @@ namespace TerrariaInvEdit.UI.Forms
                     {
                         Player temp = Player.getMiniPlayer(file);
                         temp.SavePlayer();
-                        
+
                         if (temp != null)
                         {
                             if (string.IsNullOrEmpty(temp.Name))
@@ -202,7 +203,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (item.Prefix == 0)
                     prefix = "";
                 else
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "dye";
@@ -226,7 +227,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (item.Prefix == 0)
                     prefix = "";
                 else
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "armor";
@@ -251,7 +252,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                 {
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 }
 
                 if (item.ItemName == null)
@@ -282,7 +283,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (item.Prefix == 0)
                     prefix = "";
                 else
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
@@ -306,7 +307,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (item.Prefix == 0)
                     prefix = "";
                 else
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "armor";
@@ -330,7 +331,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (item.Prefix == 0)
                     prefix = "";
                 else
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
@@ -354,7 +355,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (item.Prefix == 0)
                     prefix = "";
                 else
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
@@ -378,7 +379,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (item.Prefix == 0)
                     prefix = "";
                 else
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Tag = "item";
@@ -402,7 +403,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (item.Prefix == 0)
                     prefix = "";
                 else
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "dye";
@@ -426,7 +427,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (item.Prefix == 0)
                     prefix = "";
                 else
-                    prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
+                    prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
@@ -1190,7 +1191,7 @@ namespace TerrariaInvEdit.UI.Forms
                         if (items[item.Index].Prefix == 0)
                             strPrefix = "";
                         else
-                            strPrefix = "[" + Constants.PrefixNames[items[item.Index].Prefix] + "]";
+                            strPrefix = "[" + Constants.Prefixes[items[item.Index].Prefix] + "]";
 
 
                         node.Tag = items[item.Index];
@@ -1363,7 +1364,7 @@ namespace TerrariaInvEdit.UI.Forms
             if (!BuffList.Images.ContainsKey(comboBuff.SelectedIndex.ToString()))
                 BuffList.Images.Add(comboBuff.SelectedIndex.ToString(), GetBitmap("Buff/{0}.png", comboBuff.SelectedIndex));
             pbSelectedBuff.Image = BuffList.Images[comboBuff.SelectedIndex.ToString()];
-            rtbDesc.Text = Constants.BuffTips[comboBuff.SelectedIndex];
+            rtbDesc.Text = Constants.Buffs[comboBuff.SelectedIndex].BuffDescription;
         }
 
         private void btnMaxTime_Click(object sender, EventArgs e)
@@ -1394,7 +1395,7 @@ namespace TerrariaInvEdit.UI.Forms
                 }
             }
             if (Result == null)
-                throw new FileNotFoundException(string.Format("Unable to find Texture at Path \"{0}\"", Path));
+                throw new FileNotFoundException($"Unable to find Texture at Path \"{Path}\"");
             return (Bitmap)Result.Clone();
         }
 

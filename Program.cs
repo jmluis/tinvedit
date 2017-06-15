@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -17,9 +16,6 @@ namespace TerrariaInvEdit
             AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-#if !DEBUG
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
-#endif
             Application.Run(MainF = new MainForm());
         }
 
