@@ -6,6 +6,7 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using TerraLimb;
 using TerrariaInvEdit.Terraria;
 
 namespace TerrariaInvEdit.UI.Forms
@@ -76,7 +77,8 @@ namespace TerrariaInvEdit.UI.Forms
                     if (Path.GetExtension(file) == ".plr")
                     {
                         Player temp = Player.getMiniPlayer(file);
-
+                        temp.SavePlayer();
+                        
                         if (temp != null)
                         {
                             if (string.IsNullOrEmpty(temp.Name))
@@ -201,7 +203,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "dye";
                 tempNode.Nodes.Add(tempNode2);
@@ -225,7 +227,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "armor";
                 tempNode.Nodes.Add(tempNode2);
@@ -254,10 +256,10 @@ namespace TerrariaInvEdit.UI.Forms
 
                 if (item.ItemName == null)
                     tempNode2 = new TreeNode("");
-                if (item.ItemNick == null)
+                if (item.Nick == null)
                     tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName);
 
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
                 tempNode.Nodes.Add(tempNode2);
@@ -281,7 +283,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
                 tempNode.Nodes.Add(tempNode2);
@@ -305,7 +307,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "armor";
                 tempNode.Nodes.Add(tempNode2);
@@ -329,7 +331,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
                 tempNode.Nodes.Add(tempNode2);
@@ -353,7 +355,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
                 tempNode.Nodes.Add(tempNode2);
@@ -377,7 +379,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Tag = "item";
                 tempNode.Nodes.Add(tempNode2);
@@ -401,7 +403,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "dye";
                 tempNode.Nodes.Add(tempNode2);
@@ -425,7 +427,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.PrefixNames[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.ItemNick);
+                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
                 tempNode.Nodes.Add(tempNode2);
@@ -1108,7 +1110,7 @@ namespace TerrariaInvEdit.UI.Forms
                             MessageBox.Show("Item does not exist!", "Failed!");
                             return;
                         }
-                        temp.ItemNick = "";
+                        temp.Nick = "";
                         treeInv.SelectedNode.Tag = temp;
                     }
                 }
@@ -1192,7 +1194,7 @@ namespace TerrariaInvEdit.UI.Forms
 
 
                         node.Tag = items[item.Index];
-                        node.Text = strPrefix + Constants.Items[items[item.Index].ItemID].ItemName + " " + items[item.Index].ItemNick;
+                        node.Text = strPrefix + Constants.Items[items[item.Index].ItemID].ItemName + " " + items[item.Index].Nick;
                         node.BackColor = (items[item.Index].IsFavorite ? Color.LightYellow : Color.White);
                         if (node.Name == "armor")
                             DrawCharacter(true);
@@ -1221,31 +1223,31 @@ namespace TerrariaInvEdit.UI.Forms
 
                 //Pickaxes
                 if (itm.ItemID == -1 || itm.ItemID == -7 || itm.ItemID == -13 || itm.ItemID == -25 || itm.ItemID == -31 || itm.ItemID == -37 || itm.ItemID == -43)
-                    pbItem.Image = GetItem(1, itm.Color);
+                    pbItem.Image = GetItem(1, itm.GetColor());
                 //Broadswords
                 else if (itm.ItemID == -2 || itm.ItemID == -8 || itm.ItemID == -14 || itm.ItemID == -26 || itm.ItemID == -32 || itm.ItemID == -38 || itm.ItemID == -44)
-                    pbItem.Image = GetItem(4, itm.Color);
+                    pbItem.Image = GetItem(4, itm.GetColor());
                 //Shortswords
                 else if (itm.ItemID == -3 || itm.ItemID == -9 || itm.ItemID == -15 || itm.ItemID == -27 || itm.ItemID == -33 || itm.ItemID == -39 || itm.ItemID == -45)
-                    pbItem.Image = GetItem(6, itm.Color);
+                    pbItem.Image = GetItem(6, itm.GetColor());
                 //Axes
                 else if (itm.ItemID == -4 || itm.ItemID == -10 || itm.ItemID == -16 || itm.ItemID == -28 || itm.ItemID == -34 || itm.ItemID == -40 || itm.ItemID == -46)
-                    pbItem.Image = GetItem(10, itm.Color);
+                    pbItem.Image = GetItem(10, itm.GetColor());
                 //Hammers
                 else if (itm.ItemID == -5 || itm.ItemID == -11 || itm.ItemID == -17 || itm.ItemID == -29 || itm.ItemID == -35 || itm.ItemID == -41 || itm.ItemID == -47)
-                    pbItem.Image = GetItem(7, itm.Color);
+                    pbItem.Image = GetItem(7, itm.GetColor());
                 //Bows
                 else if (itm.ItemID == -6 || itm.ItemID == -12 || itm.ItemID == -18 || itm.ItemID == -30 || itm.ItemID == -36 || itm.ItemID == -42 || itm.ItemID == -48)
-                    pbItem.Image = GetItem(99, itm.Color);
+                    pbItem.Image = GetItem(99, itm.GetColor());
                 //Phasesabers
                 else if (itm.ItemID <= -19 && itm.ItemID >= -24)
                 {
                     int magicByte = 179;
                     magicByte += (itm.ItemID * -1);
-                    pbItem.Image = GetItem(magicByte, itm.Color);
+                    pbItem.Image = GetItem(magicByte, itm.GetColor());
                 }
                 else
-                    pbItem.Image = GetItem(itm.ItemID, itm.Color);
+                    pbItem.Image = GetItem(itm.ItemID, itm.GetColor());
             }
         }
         #endregion

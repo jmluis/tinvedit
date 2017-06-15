@@ -1247,12 +1247,12 @@ namespace TerrariaInvEdit.UI.Forms
                     }
                     else
                     {
-                        Item.AddListBoxItems(lbItems);
-                        Item.AddComboBoxPrefix(comboPrefix);
+                        Extensions.AddListBoxItems(lbItems);
+                        Extensions.AddComboBoxPrefixes(comboPrefix);
                     }
                 }
                 if (e.TabPage == tbBuffs)
-                    Buff.AddComboBoxItems(comboBuff);
+                    Extensions.AddComboBoxBuffs(comboBuff);
             }
             else if (PPlayer == null)
             {

@@ -169,4 +169,12 @@
   <data name="Data" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Data.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Player_NoOpFileInUse" xml:space="preserve">
+    <value>Operation Failed!
+ {0} the file is in use by another application.</value>
+  </data>
+  <data name="Player_NoOpFileNoExist" xml:space="preserve">
+    <value>Operation Failed!
+ {0} the file or path does not exist.</value>
+  </data>
 </root>

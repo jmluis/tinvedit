@@ -95,6 +95,9 @@
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\DEBUNK\</OutputPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip">
       <HintPath>Resources\Librarys\Ionic.Zip.dll</HintPath>
@@ -130,14 +133,12 @@
     <Compile Include="UI\Forms\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Terraria\Buff.cs" />
     <Compile Include="UI\Forms\ColorChoose.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Forms\ColorChoose.Designer.cs">
       <DependentUpon>ColorChoose.cs</DependentUpon>
     </Compile>
-    <Compile Include="Terraria\Constants.cs" />
     <Compile Include="UI\Forms\ExceptionHandler.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,7 +151,6 @@
     <Compile Include="UI\Forms\HairChoose.designer.cs">
       <DependentUpon>HairChoose.cs</DependentUpon>
     </Compile>
-    <Compile Include="Terraria\Item.cs" />
     <Compile Include="UI\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,6 +267,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TerraLimb\TerraLimb.csproj">
+      <Project>{c958f112-3f9f-4593-967e-d76f7c4892b5}</Project>
+      <Name>TerraLimb</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">

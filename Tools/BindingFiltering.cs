@@ -321,7 +321,6 @@ namespace TerrariaInvEdit.Tools
 
                 if (interfaceType == null)
                     throw new InvalidOperationException("Filtered property must implement IComparable.");
-
                 // Check each value and add to the results list.
                 foreach (T item in this)
                 {

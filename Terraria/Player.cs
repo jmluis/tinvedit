@@ -5,6 +5,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using TerraLimb;
+using TerrariaInvEdit.Properties;
 using TerrariaInvEdit.UI.Forms;
 
 namespace TerrariaInvEdit.Terraria
@@ -89,6 +91,7 @@ namespace TerrariaInvEdit.Terraria
             Loaded = false;
             FilePath = path;
         }
+
 
         protected virtual void OnLoaded(EventArgs e)
         {
@@ -211,7 +214,7 @@ namespace TerrariaInvEdit.Terraria
             #region Error stuff
             if (!File.Exists(FilePath))
             {
-                MessageBox.Show("Failed to load " + Path.GetFileName(_plrFile) + " because the file or path does not exist.", "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Resources.Player_NoOpFileNoExist, Path.GetFileName(_plrFile)), "Failed to load file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             #endregion
@@ -228,7 +231,7 @@ namespace TerrariaInvEdit.Terraria
                 #region Error Handling
                 catch (UnauthorizedAccessException)
                 {
-                    MessageBox.Show("Failed to load " + Path.GetFileName(_plrFile) + " because the access was denied. Try to run " + Application.ProductName + " " + Application.ProductVersion + " as administrator", "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to load " + Path.GetFileName(_plrFile) + " because the access was denied. Try to run " + Application.ProductName + " " + Application.ProductVersion + " as administrator", "Failed to load", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 catch (IOException)
@@ -334,7 +337,7 @@ namespace TerrariaInvEdit.Terraria
                                     ItemID = reader.ReadInt32(),
                                     Prefix = reader.ReadByte(),
                                     Index = i,
-                                    ItemNick = nick
+                                    Nick = nick
                                 };
                             }
                             for (int i = 10; i < Armor.Length; ++i)
@@ -366,7 +369,7 @@ namespace TerrariaInvEdit.Terraria
                                     ItemID = reader.ReadInt32(),
                                     Prefix = reader.ReadByte(),
                                     Index = i,
-                                    ItemNick = nick
+                                    Nick = nick
                                 };
                             }
                             for (int i = 0; i < Dye.Length; ++i)
@@ -399,7 +402,7 @@ namespace TerrariaInvEdit.Terraria
                                         ItemID = reader.ReadInt32(),
                                         Prefix = reader.ReadByte(),
                                         Index = i,
-                                        ItemNick = nick
+                                        Nick = nick
                                     };
                             }
                             for (int i = 0; i < Inventory.Length; ++i)
@@ -461,14 +464,14 @@ namespace TerrariaInvEdit.Terraria
                                     ItemID = reader.ReadInt32(),
                                     Prefix = reader.ReadByte(),
                                     Index = i,
-                                    ItemNick = nick + ")"
+                                    Nick = nick + ")"
                                 };
                                 MiscDye[i] = new Item
                                 {
                                     ItemID = reader.ReadInt32(),
                                     Prefix = reader.ReadByte(),
                                     Index = i,
-                                    ItemNick = nick + " Dye)"
+                                    Nick = nick + " Dye)"
                                 };
                             }
                             for (int i = 0; i < Bank.Length; ++i)
@@ -581,7 +584,7 @@ namespace TerrariaInvEdit.Terraria
 
             if (Name == null)
             {
-                DialogResult resu = System.Windows.Forms.MessageBox.Show("Something weird happened... name == null!", "Error!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                DialogResult resu = MessageBox.Show("Something weird happened... name == null!", "Error!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 return false;
             }
             else
@@ -603,7 +606,8 @@ namespace TerrariaInvEdit.Terraria
                 }
                 catch (IOException)
                 {
-                    MessageBox.Show("Failed to backup " + Path.GetFileName(FilePath) + " because the file was in use by another application. Try again later.", "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        string.Format(Resources.Player_NoOpFileInUse, Path.GetFileName(FilePath)), "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 string tempPath = destPath == "" ? FilePath + ".dat" : destPath + ".dat";
@@ -812,7 +816,7 @@ namespace TerrariaInvEdit.Terraria
                     File.Delete(FilePath);
                     if (File.Exists(destFileName))
                         File.Copy(destFileName, FilePath);
-                    MessageBox.Show("Failed to save " + Path.GetFileName(FilePath) + " because the file was in use by another application. Try again later.", "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(Resources.Player_NoOpFileInUse, Path.GetFileName(FilePath)), "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 File.Delete(tempPath);
