@@ -5,9 +5,10 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using RollbarDotNet;
 using TerraLimb;
-using TerrariaInvEdit.Properties;
 using TerrariaInvEdit.UI.Forms;
+using Exception = System.Exception;
 
 namespace TerrariaInvEdit.Terraria
 {
@@ -43,7 +44,7 @@ namespace TerrariaInvEdit.Terraria
         public int BartenderQuestLog;
         // endconfusion
 
-        public bool IsMale => SkinVariant < 4;
+        public bool IsMale { get { return SkinVariant < 4; } }
 
         public int HP { get; set; }
         public int MaxHP { get; set; }
@@ -91,7 +92,6 @@ namespace TerrariaInvEdit.Terraria
             Loaded = false;
             FilePath = path;
         }
-
 
         protected virtual void OnLoaded(EventArgs e)
         {
@@ -175,7 +175,7 @@ namespace TerrariaInvEdit.Terraria
                         using (BinaryReader reader = new BinaryReader(stream))
                         {
                             player.TerrariaVersion = reader.ReadInt32();
-                            if (player.TerrariaVersion < Constants.TERRARIA_RELEASE)
+                            if (player.TerrariaVersion < Constants.CurrentPackage.TerrariaVersion)
                                 return null;
                             // Some terraria magic for relogic files
                             player.MagicNumber = reader.ReadUInt64();
@@ -214,7 +214,7 @@ namespace TerrariaInvEdit.Terraria
             #region Error stuff
             if (!File.Exists(FilePath))
             {
-                MessageBox.Show(string.Format(Resources.Player_NoOpFileNoExist, Path.GetFileName(_plrFile)), "Failed to load file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to load " + Path.GetFileName(_plrFile) + " because the file or path does not exist.", "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             #endregion
@@ -231,7 +231,7 @@ namespace TerrariaInvEdit.Terraria
                 #region Error Handling
                 catch (UnauthorizedAccessException)
                 {
-                    MessageBox.Show("Failed to load " + Path.GetFileName(_plrFile) + " because the access was denied. Try to run " + Application.ProductName + " " + Application.ProductVersion + " as administrator", "Failed to load", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to load " + Path.GetFileName(_plrFile) + " because the access was denied. Try to run " + Application.ProductName + " " + Application.ProductVersion + " as administrator", "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 catch (IOException)
@@ -250,9 +250,9 @@ namespace TerrariaInvEdit.Terraria
                             #region Loading character data
 
                             TerrariaVersion = reader.ReadInt32();
-                            if (TerrariaVersion != Constants.TERRARIA_RELEASE)
+                            if (TerrariaVersion != Constants.CurrentPackage.TerrariaVersion)
                             {
-                                MessageBox.Show("This version of the editor was optimized for " + Constants.TERRARIA_STRING + ". It may not function properly with other versions of Terraria. Careful!", "WARNING");
+                                MessageBox.Show("This version of the editor was optimized for " + Constants.CurrentPackage.TerrariaVersionString + ". It may not function properly with other versions of Terraria. Careful!", "WARNING");
                                 return false;
                             }
                             // Some terraria magic for relogic files
@@ -560,9 +560,7 @@ namespace TerrariaInvEdit.Terraria
             }
             catch (Exception e)
             {
-                ExceptionHandler handler = new ExceptionHandler(e);
-                if (handler.canShow)
-                    handler.Show();
+                Rollbar.Report(e);
                 flag = true;
             }
 
@@ -584,7 +582,7 @@ namespace TerrariaInvEdit.Terraria
 
             if (Name == null)
             {
-                DialogResult resu = MessageBox.Show("Something weird happened... name == null!", "Error!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                DialogResult resu = System.Windows.Forms.MessageBox.Show("Something weird happened... name == null!", "Error!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 return false;
             }
             else
@@ -606,8 +604,7 @@ namespace TerrariaInvEdit.Terraria
                 }
                 catch (IOException)
                 {
-                    MessageBox.Show(
-                        string.Format(Resources.Player_NoOpFileInUse, Path.GetFileName(FilePath)), "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to backup " + Path.GetFileName(FilePath) + " because the file was in use by another application. Try again later.", "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 string tempPath = destPath == "" ? FilePath + ".dat" : destPath + ".dat";
@@ -616,7 +613,7 @@ namespace TerrariaInvEdit.Terraria
                     using (BinaryWriter writer = new BinaryWriter(stream))
                     {
                         #region Saving char info
-                        writer.Write(Constants.TERRARIA_RELEASE);
+                        writer.Write(Constants.CurrentPackage.TerrariaVersion);
 
                         // Metadata stuff
                         writer.Write(MagicNumber);
@@ -816,7 +813,7 @@ namespace TerrariaInvEdit.Terraria
                     File.Delete(FilePath);
                     if (File.Exists(destFileName))
                         File.Copy(destFileName, FilePath);
-                    MessageBox.Show(string.Format(Resources.Player_NoOpFileInUse, Path.GetFileName(FilePath)), "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to save " + Path.GetFileName(FilePath) + " because the file was in use by another application. Try again later.", "Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 File.Delete(tempPath);

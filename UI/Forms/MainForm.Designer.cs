@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
+using AutoUpdaterDotNET;
 using TerrariaInvEdit.Terraria;
 using TerrariaInvEdit.Tools;
 using TerrariaInvEdit.UI.Controls;
@@ -1194,11 +1195,7 @@ namespace TerrariaInvEdit.UI.Forms
             opnFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\My Games\Terraria\Players";
             savFileDialog.InitialDirectory = opnFileDialog.InitialDirectory;
 
-            Thread updateThread = new Thread(delegate()
-            {
-                UpdateChecker.CheckForUpdates(false);
-            });
-            updateThread.Start();
+            AutoUpdater.Start("https://u.chbshoot.me/chk/0");
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
@@ -1208,7 +1205,7 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void btnCheckUpdates_Click(object sender, EventArgs e)
         {
-            UpdateChecker.CheckForUpdates(true);
+            AutoUpdater.Start("https://u.chbshoot.me/chk/0");
         }
 
         private void btnDonate_Click(object sender, EventArgs e)
@@ -1223,7 +1220,7 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void btnChbShoot_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"http://chbshoot.me/");
+            System.Diagnostics.Process.Start(@"https://chbshoot.me/");
         }
 
         private void tabControl_Selecting(object sender, TabControlCancelEventArgs e)

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TerrariaInvEdit</RootNamespace>
     <AssemblyName>TerrariaInvEdit</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -40,6 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>send</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -50,6 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>TerrariaInvEdit.Program</StartupObject>
@@ -60,13 +62,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Release\</OutputPath>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <DefineConstants>
     </DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEBUNK|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -76,6 +82,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEBUNK|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -83,18 +90,22 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Release\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEBUNK|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\DEBUNK\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
@@ -113,18 +124,19 @@
       <HintPath>Resources\Librarys\Ionic.Zip.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Rollbar, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Rollbar.0.3.2\lib\net45\Rollbar.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -132,6 +144,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Terraria\Player.cs" />
     <Compile Include="Tools\BindingFiltering.cs" />
     <Compile Include="Tools\Extensions.cs" />
     <Compile Include="UI\Controls\ColoredProgressBar.cs">
@@ -149,12 +162,6 @@
     <Compile Include="UI\Forms\ColorChoose.Designer.cs">
       <DependentUpon>ColorChoose.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\ExceptionHandler.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\ExceptionHandler.Designer.cs">
-      <DependentUpon>ExceptionHandler.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Forms\HairChoose.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,19 +174,10 @@
     <Compile Include="UI\Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tools\OSVersion.cs" />
-    <Compile Include="Terraria\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Controls\TreeViewMS.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Tools\UpdateChecker.cs" />
-    <Compile Include="UI\Forms\UpdateForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\UpdateForm.Designer.cs">
-      <DependentUpon>UpdateForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="UI\Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
@@ -187,9 +185,6 @@
     <EmbeddedResource Include="UI\Forms\ColorChoose.resx">
       <DependentUpon>ColorChoose.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\ExceptionHandler.resx">
-      <DependentUpon>ExceptionHandler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\HairChoose.resx">
       <DependentUpon>HairChoose.cs</DependentUpon>
@@ -203,9 +198,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\UpdateForm.resx">
-      <DependentUpon>UpdateForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -219,41 +213,55 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Data.zip" />
-    <None Include="Resources\folder-horizontal-open.png" />
+    <None Include="Resources\Images\folder-horizontal-open.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\disk-black.png" />
+    <None Include="Resources\Images\disk-black.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\arrow_refresh.png" />
+    <None Include="Resources\Images\arrow_refresh.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\disks-black.png" />
+    <None Include="Resources\Images\disks-black.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\information.png" />
+    <None Include="Resources\Images\information.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kdev.png" />
+    <None Include="Resources\Images\kdev.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\shoot.png" />
-    <None Include="Resources\money_add.png" />
-    <None Include="Resources\balloon-twitter-left1.png" />
-    <None Include="Resources\cross.png" />
-    <None Include="Resources\door_out.png" />
-    <None Include="Resources\drive-download1.png" />
-    <None Include="Resources\folder_user.png" />
+    <Content Include="Resources\Images\Buff\Buff_0.png" />
+    <Content Include="Resources\Images\Player\Player_Eyes.png" />
+    <Content Include="Resources\Images\Player\Player_Eye_Whites.png" />
+    <Content Include="Resources\Images\Player\Player_Hands.png" />
+    <Content Include="Resources\Images\Player\Player_Hands2.png" />
+    <Content Include="Resources\Images\Player\Player_Head.png" />
+    <Content Include="Resources\Images\Player\Player_Pants.png" />
+    <Content Include="Resources\Images\Player\Player_Shirt.png" />
+    <Content Include="Resources\Images\Player\Player_Shoes.png" />
+    <Content Include="Resources\Images\Player\Player_Undershirt.png" />
+    <Content Include="Resources\Images\Player\Player_Undershirt2.png" />
+    <Content Include="Resources\Images\shoot.png" />
+    <Content Include="Resources\Images\Skin\Skin_Arm.png" />
+    <Content Include="Resources\Images\Skin\Skin_Body.png" />
+    <Content Include="Resources\Images\Skin\Skin_Legs.png" />
+    <None Include="Resources\Images\money_add.png" />
+    <None Include="Resources\Images\balloon-twitter-left1.png" />
+    <None Include="Resources\Images\cross.png" />
+    <None Include="Resources\Images\door_out.png" />
+    <None Include="Resources\Images\drive-download1.png" />
+    <None Include="Resources\Images\folder_user.png" />
     <Content Include="favicon.ico" />
     <Content Include="icon.ico" />
-    <Content Include="Resources\icon.ico" />
-    <None Include="Resources\page_refresh.png" />
-    <None Include="Resources\shootavy.png" />
-    <None Include="Resources\balloon-twitter-left.png" />
-    <None Include="Resources\map--arrow.png" />
-    <None Include="Resources\user--arrow.png" />
-    <None Include="Resources\money--arrow.png" />
-    <None Include="Resources\drive-download.png" />
+    <Content Include="Resources\Images\icon.ico" />
+    <None Include="Resources\Images\page_refresh.png" />
+    <None Include="Resources\Images\shootavy.png" />
+    <None Include="Resources\Images\balloon-twitter-left.png" />
+    <None Include="Resources\Images\map--arrow.png" />
+    <None Include="Resources\Images\user--arrow.png" />
+    <None Include="Resources\Images\money--arrow.png" />
+    <None Include="Resources\Images\drive-download.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -278,6 +286,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoUpdater.NET\AutoUpdater.NET\AutoUpdater.NET.csproj">
+      <Project>{fb9e7e6b-b19f-4f37-a708-2996190cef13}</Project>
+      <Name>AutoUpdater.NET</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TerraLimb\TerraLimb.csproj">
       <Project>{c958f112-3f9f-4593-967e-d76f7c4892b5}</Project>
       <Name>TerraLimb</Name>

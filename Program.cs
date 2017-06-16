@@ -2,6 +2,8 @@
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using RollbarDotNet;
+using TerrariaInvEdit.Properties;
 using TerrariaInvEdit.UI.Forms;
 
 namespace TerrariaInvEdit
@@ -13,19 +15,27 @@ namespace TerrariaInvEdit
         [STAThread]
         static void Main()
         {
+            RollbarConfig config = new RollbarConfig(Resources.Rollbar_Access);
+#if DEBUG
+            config.Environment = "development";
+#endif
+#if !DEBUG
+            Rollbar.Init(config);
+
             AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
+            Application.ThreadException += (sender, args) =>
+            {
+                Rollbar.Report(args.Exception);
+            };
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+                    {
+                        Rollbar.Report(args.ExceptionObject as System.Exception);
+                    };
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Rollbar.Init(new RollbarConfig(Resources.Rollbar_Access));
             Application.Run(MainF = new MainForm());
-        }
-
-        public static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
-        {
-            if (e.Exception == null)
-                return;
-            ExceptionHandler handler = new ExceptionHandler(e.Exception);
-            if (handler.canShow)
-                handler.Show();
         }
 
         private static Assembly OnResolveAssembly(object sender, ResolveEventArgs args)

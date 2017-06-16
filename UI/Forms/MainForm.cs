@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TerraLimb;
+using TerrariaInvEdit.Properties;
 using TerrariaInvEdit.Terraria;
 
 namespace TerrariaInvEdit.UI.Forms
@@ -27,7 +27,7 @@ namespace TerrariaInvEdit.UI.Forms
         {
             this.TextureCache = new Dictionary<string, Bitmap>();
             InitializeComponent();
-            System.Drawing.Graphics g = this.CreateGraphics();
+            Graphics g = this.CreateGraphics();
             dpiX = g.DpiX;
             dpiY = g.DpiY;
             g.Dispose();
@@ -41,7 +41,7 @@ namespace TerrariaInvEdit.UI.Forms
             this.Height = (int)(270 * (dpiY / 100)) + 10;
             pbItem.SizeMode = PictureBoxSizeMode.Zoom;
             this.Data = ZipFile.Read(new MemoryStream(Properties.Resources.Data));
-            Constants.Initialize(GetJson("items.json"), GetJson("prefixes.json"), GetJson("buffs.json"));
+            Constants.Initialize(GetJson("package.json"), GetJson("items.json"), GetJson("prefixes.json"), GetJson("buffs.json"));
         }
         #endregion
 
@@ -1392,10 +1392,15 @@ namespace TerrariaInvEdit.UI.Forms
                     byte[] ImageData = new byte[Stream.Length];
                     Stream.Read(ImageData, 0, (int)Stream.Length);
                     TextureCache.Add(Path, Result = new Bitmap(new MemoryStream(ImageData)));
+                    Stream.Dispose();
                 }
             }
             if (Result == null)
-                throw new FileNotFoundException($"Unable to find Texture at Path \"{Path}\"");
+            {
+                Result = Resources.ResourceManager.GetObject(Path.Replace('/', '_').Replace(".png", "")) as Bitmap;
+                if (Result == null)
+                    throw new FileNotFoundException($"Unable to find Texture at Path \"{Path}\"");
+            }
             return (Bitmap)Result.Clone();
         }
 
@@ -1409,7 +1414,10 @@ namespace TerrariaInvEdit.UI.Forms
                 s.Position = 0;
                 using (var sr = new StreamReader(s))
                 {
-                    return sr.ReadToEnd();
+                    string json = sr.ReadToEnd();
+                    sr.Dispose();
+                    s.Dispose();
+                    return json;
                 }
             }
         }

@@ -83,6 +83,16 @@ namespace TerrariaInvEdit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Buff_0 {
+            get {
+                object obj = ResourceManager.GetObject("Buff_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cross {
             get {
                 object obj = ResourceManager.GetObject("cross", resourceCulture);
@@ -201,6 +211,56 @@ namespace TerrariaInvEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player_Eye_Whites {
+            get {
+                object obj = ResourceManager.GetObject("Player_Eye_Whites", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player_Eyes {
+            get {
+                object obj = ResourceManager.GetObject("Player_Eyes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player_Hands {
+            get {
+                object obj = ResourceManager.GetObject("Player_Hands", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player_Hands2 {
+            get {
+                object obj = ResourceManager.GetObject("Player_Hands2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player_Head {
+            get {
+                object obj = ResourceManager.GetObject("Player_Head", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operation Failed!
         /// {0} the file is in use by another application..
         /// </summary>
@@ -223,6 +283,65 @@ namespace TerrariaInvEdit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Player_Pants {
+            get {
+                object obj = ResourceManager.GetObject("Player_Pants", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player_Shirt {
+            get {
+                object obj = ResourceManager.GetObject("Player_Shirt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player_Shoes {
+            get {
+                object obj = ResourceManager.GetObject("Player_Shoes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player_Undershirt {
+            get {
+                object obj = ResourceManager.GetObject("Player_Undershirt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player_Undershirt2 {
+            get {
+                object obj = ResourceManager.GetObject("Player_Undershirt2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4f2f3e66d8dd491fafe2a46560be4688.
+        /// </summary>
+        internal static string Rollbar_Access {
+            get {
+                return ResourceManager.GetString("Rollbar_Access", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap shoot {
             get {
                 object obj = ResourceManager.GetObject("shoot", resourceCulture);
@@ -236,6 +355,36 @@ namespace TerrariaInvEdit.Properties {
         internal static System.Drawing.Bitmap shootavy {
             get {
                 object obj = ResourceManager.GetObject("shootavy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Skin_Arm {
+            get {
+                object obj = ResourceManager.GetObject("Skin_Arm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Skin_Body {
+            get {
+                object obj = ResourceManager.GetObject("Skin_Body", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Skin_Legs {
+            get {
+                object obj = ResourceManager.GetObject("Skin_Legs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
