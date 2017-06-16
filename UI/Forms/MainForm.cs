@@ -41,7 +41,7 @@ namespace TerrariaInvEdit.UI.Forms
             this.Height = (int)(270 * (dpiY / 100)) + 10;
             pbItem.SizeMode = PictureBoxSizeMode.Zoom;
             this.Data = ZipFile.Read(new MemoryStream(Properties.Resources.Data));
-            Constants.Initialize(@"D:\steamapps\common\Terraria");
+            Constants.Initialize(GetJson("items.json"), GetJson("prefixes.json"), GetJson("buffs.json"));
         }
         #endregion
 
@@ -1008,7 +1008,7 @@ namespace TerrariaInvEdit.UI.Forms
                     case "dye":
                         item = (Item)clickedNode.Tag;
                         index = (item.Prefix != 0) ? item.Prefix : 0;
-                        comboPrefix.SelectedIndex = item.Prefix;
+                        comboPrefix.SelectedIndex = index;
                         lbItems.SelectedItem = Constants.Items[item.ItemID];
                         lbStackSize.Visible = false;
                         splitContainer.Panel2Collapsed = false;
@@ -1020,7 +1020,7 @@ namespace TerrariaInvEdit.UI.Forms
                     case "item":
                         item = (Item)clickedNode.Tag;
                         index = (item.Prefix != 0) ? item.Prefix : 0;
-                        comboPrefix.SelectedIndex = item.Prefix;
+                        comboPrefix.SelectedIndex = index;
                         numStackSize.Value = item.Stack;
                         lbItems.SelectedItem = Constants.Items[item.ItemID];
                         chkFavoritedItem.Visible = true;
@@ -1034,7 +1034,7 @@ namespace TerrariaInvEdit.UI.Forms
                     case "armor":
                         item = (Item)clickedNode.Tag;
                         index = (item.Prefix != 0) ? item.Prefix : 0;
-                        comboPrefix.SelectedIndex = item.Prefix;
+                        comboPrefix.SelectedIndex = index;
                         lbItems.SelectedItem = Constants.Items[item.ItemID];
                         lbStackSize.Visible = false;
                         splitContainer.Panel2Collapsed = false;
@@ -1397,6 +1397,21 @@ namespace TerrariaInvEdit.UI.Forms
             if (Result == null)
                 throw new FileNotFoundException($"Unable to find Texture at Path \"{Path}\"");
             return (Bitmap)Result.Clone();
+        }
+
+        public string GetJson(string format, params object[] args)
+        {
+            var path = string.Format(format, args);
+            var data = Data[path];
+            using (var s = new MemoryStream())
+            {
+                data.Extract(s);
+                s.Position = 0;
+                using (var sr = new StreamReader(s))
+                {
+                    return sr.ReadToEnd();
+                }
+            }
         }
 
         private void btnSaveItem_Click(object sender, EventArgs e)

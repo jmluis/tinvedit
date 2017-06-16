@@ -43,7 +43,7 @@ namespace TerrariaInvEdit.Terraria
         public int BartenderQuestLog;
         // endconfusion
 
-        public bool IsMale { get { return SkinVariant < 4; } }
+        public bool IsMale => SkinVariant < 4;
 
         public int HP { get; set; }
         public int MaxHP { get; set; }
@@ -398,12 +398,12 @@ namespace TerrariaInvEdit.Terraria
                                 }
                                 nick += " Dye)";
                                 Dye[i] = new Item
-                                    {
-                                        ItemID = reader.ReadInt32(),
-                                        Prefix = reader.ReadByte(),
-                                        Index = i,
-                                        Nick = nick
-                                    };
+                                {
+                                    ItemID = reader.ReadInt32(),
+                                    Prefix = reader.ReadByte(),
+                                    Index = i,
+                                    Nick = nick
+                                };
                             }
                             for (int i = 0; i < Inventory.Length; ++i)
                             {
