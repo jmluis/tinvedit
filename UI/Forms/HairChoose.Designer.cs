@@ -1,11 +1,14 @@
-﻿namespace TerrariaInvEdit.UI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace TerrariaInvEdit.UI.Forms
 {
     partial class HairChoose
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -95,9 +98,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnRight;
-        private System.Windows.Forms.Button btnLeft;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btnSave;
+        private Button btnRight;
+        private Button btnLeft;
+        private PictureBox pictureBox1;
+        private Button btnSave;
     }
 }

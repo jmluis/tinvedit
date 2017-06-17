@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Threading;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 using AutoUpdaterDotNET;
-using TerrariaInvEdit.Terraria;
 using TerrariaInvEdit.Tools;
 using TerrariaInvEdit.UI.Controls;
 
@@ -13,7 +13,7 @@ namespace TerrariaInvEdit.UI.Forms
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -1210,17 +1210,17 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void btnDonate_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=MLBDGNJV6MWSS&lc=US&item_name=Shoot%27s%20Terraria%20Fund&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted");
+            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=MLBDGNJV6MWSS&lc=US&item_name=Shoot%27s%20Terraria%20Fund&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted");
         }
 
         private void btnTwitter_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"https://twitter.com/#!/chbshoot");
+            Process.Start(@"https://twitter.com/#!/chbshoot");
         }
 
         private void btnChbShoot_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"https://chbshoot.me/");
+            Process.Start(@"https://chbshoot.me/");
         }
 
         private void tabControl_Selecting(object sender, TabControlCancelEventArgs e)
@@ -1276,81 +1276,81 @@ namespace TerrariaInvEdit.UI.Forms
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton btnSave;
-        private System.Windows.Forms.SaveFileDialog savFileDialog;
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tpStats;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TabPage tpInv;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Panel pContainer;
-        private System.Windows.Forms.NumericUpDown numMaxMP;
-        private System.Windows.Forms.NumericUpDown numMP;
-        private System.Windows.Forms.NumericUpDown numHP;
-        private System.Windows.Forms.NumericUpDown numMaxHP;
-        private System.Windows.Forms.ToolStripButton btnReload;
-        private System.Windows.Forms.ToolStripButton btnSaveAs;
-        private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.NumericUpDown numStackSize;
-        private System.Windows.Forms.Label lbStackSize;
-        private System.Windows.Forms.Button btnMaxStack;
-        private System.Windows.Forms.ToolStripButton btnAbout;
-        private System.Windows.Forms.ToolStripButton btnCheckUpdates;
-        private System.Windows.Forms.ToolStripButton btnDonate;
-        private System.Windows.Forms.TextBox txtTerrariaVersion;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btnTwitter;
-        private System.Windows.Forms.ToolStripSplitButton btnOpen;
-        private System.Windows.Forms.ToolStripButton btnChbShoot;
-        private System.Windows.Forms.TabPage tbBuffs;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button btnMaxTime;
-        private System.Windows.Forms.Button btnSaveBuff;
-        private System.Windows.Forms.NumericUpDown numTime;
-        public System.Windows.Forms.ComboBox comboBuff;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.RichTextBox rtbDesc;
-        public System.Windows.Forms.OpenFileDialog opnFileDialog;
-        private System.Windows.Forms.ComboBox comboDifficulty;
-        private System.Windows.Forms.Label lblDif;
-        private UI.Controls.TreeViewMS treeInv;
-        private UI.Controls.TreeViewMS treeBuff;
-        private System.Windows.Forms.ImageList genderImageList;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox chkHBLocked;
-        private System.Windows.Forms.ComboBox comboPrefix;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.ListBox lbItems;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.PictureBox pbItem;
-        private System.Windows.Forms.ImageList BuffList;
-        private System.Windows.Forms.PictureBox pbSelectedBuff;
-        private System.Windows.Forms.GroupBox gbGeneral;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private ToolStrip toolStrip1;
+        private ToolStripButton btnSave;
+        private SaveFileDialog savFileDialog;
+        private TabControl tabControl;
+        private TabPage tpStats;
+        private Label label2;
+        private Label label1;
+        private TabPage tpInv;
+        private TextBox txtName;
+        private Label label6;
+        private Label label5;
+        private Label label4;
+        private Label label3;
+        private Panel pContainer;
+        private NumericUpDown numMaxMP;
+        private NumericUpDown numMP;
+        private NumericUpDown numHP;
+        private NumericUpDown numMaxHP;
+        private ToolStripButton btnReload;
+        private ToolStripButton btnSaveAs;
+        private SplitContainer splitContainer;
+        private NumericUpDown numStackSize;
+        private Label lbStackSize;
+        private Button btnMaxStack;
+        private ToolStripButton btnAbout;
+        private ToolStripButton btnCheckUpdates;
+        private ToolStripButton btnDonate;
+        private TextBox txtTerrariaVersion;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnTwitter;
+        private ToolStripSplitButton btnOpen;
+        private ToolStripButton btnChbShoot;
+        private TabPage tbBuffs;
+        private SplitContainer splitContainer1;
+        private Button btnMaxTime;
+        private Button btnSaveBuff;
+        private NumericUpDown numTime;
+        public ComboBox comboBuff;
+        private Label label7;
+        private Label label8;
+        private RichTextBox rtbDesc;
+        public OpenFileDialog opnFileDialog;
+        private ComboBox comboDifficulty;
+        private Label lblDif;
+        private TreeViewMS treeInv;
+        private TreeViewMS treeBuff;
+        private ImageList genderImageList;
+        private Label label9;
+        private CheckBox chkHBLocked;
+        private ComboBox comboPrefix;
+        private Label label10;
+        private TextBox txtSearch;
+        private ListBox lbItems;
+        private Label lblName;
+        private PictureBox pbItem;
+        private ImageList BuffList;
+        private PictureBox pbSelectedBuff;
+        private GroupBox gbGeneral;
+        private GroupBox groupBox1;
         private ColoredProgressBar pbMana;
         private ColoredProgressBar pbHealth;
-        private System.Windows.Forms.PictureBox btnHair;
-        private System.Windows.Forms.PictureBox btnSkin;
-        private System.Windows.Forms.PictureBox btnEye;
-        private System.Windows.Forms.PictureBox btnShirt;
-        private System.Windows.Forms.PictureBox btnUShirt;
-        private System.Windows.Forms.PictureBox btnPants;
-        private System.Windows.Forms.PictureBox btnShoes;
-        private System.Windows.Forms.TabPage tpLooks;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button btnRight;
-        private System.Windows.Forms.Button btnLeft;
-        private System.Windows.Forms.PictureBox pbCharacter;
+        private PictureBox btnHair;
+        private PictureBox btnSkin;
+        private PictureBox btnEye;
+        private PictureBox btnShirt;
+        private PictureBox btnUShirt;
+        private PictureBox btnPants;
+        private PictureBox btnShoes;
+        private TabPage tpLooks;
+        private SplitContainer splitContainer2;
+        private Label label12;
+        private Label label11;
+        private Button btnRight;
+        private Button btnLeft;
+        private PictureBox pbCharacter;
         private CheckBox cbEquips;
         private Button btnSaveItem;
         private ContextMenuStrip cmsInventory;

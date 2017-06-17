@@ -1,13 +1,12 @@
-﻿using Ionic.Zip;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
+using Ionic.Zip;
 using TerraLimb;
 using TerrariaInvEdit.Properties;
-using TerrariaInvEdit.Terraria;
 
 namespace TerrariaInvEdit.UI.Forms
 {
@@ -25,22 +24,22 @@ namespace TerrariaInvEdit.UI.Forms
         #region ctor
         public MainForm()
         {
-            this.TextureCache = new Dictionary<string, Bitmap>();
+            TextureCache = new Dictionary<string, Bitmap>();
             InitializeComponent();
-            Graphics g = this.CreateGraphics();
+            Graphics g = CreateGraphics();
             dpiX = g.DpiX;
             dpiY = g.DpiY;
             g.Dispose();
 #if DEBUG
-            this.Text += " - DEBUG VERSION: " + this.ProductVersion;
+            Text += " - DEBUG VERSION: " + ProductVersion;
 #else
             this.Text += " - v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
 #endif
             splitContainer.Panel2Collapsed = true;
             splitContainer1.Panel2Collapsed = true;
-            this.Height = (int)(270 * (dpiY / 100)) + 10;
+            Height = (int)(270 * (dpiY / 100)) + 10;
             pbItem.SizeMode = PictureBoxSizeMode.Zoom;
-            this.Data = ZipFile.Read(new MemoryStream(Properties.Resources.Data));
+            Data = ZipFile.Read(new MemoryStream(Resources.Data));
             Constants.Initialize(GetJson("package.json"), GetJson("items.json"), GetJson("prefixes.json"), GetJson("buffs.json"));
         }
         #endregion
@@ -49,18 +48,16 @@ namespace TerrariaInvEdit.UI.Forms
         #region Open
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            if (opnFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            if (opnFileDialog.ShowDialog() != DialogResult.OK)
                 return;
-            else
-            {
-                LastPath = opnFileDialog.FileName;
-                savFileDialog.InitialDirectory = Path.GetFullPath(opnFileDialog.FileName);
-                PPlayer = new Player(opnFileDialog.FileName);
-                PPlayer.PlayerLoaded += new Player.PlayerLoadedEventHandler(PPlayer_PlayerLoaded);
-                PPlayer.PlayerSaved += new Player.PlayerSavedEventHandler(PPlayer_PlayerSaved);
-                if (!PPlayer.LoadPlayer())
-                    DisposePlayer();
-            }
+            LastPath = opnFileDialog.FileName;
+            savFileDialog.InitialDirectory = Path.GetFullPath(opnFileDialog.FileName);
+            PPlayer = new Player(opnFileDialog.FileName);
+            PPlayer.PlayerLoaded += PPlayer_PlayerLoaded;
+            PPlayer.PlayerSaved += PPlayer_PlayerSaved;
+            Player.ErrorCode code = PPlayer.LoadPlayer();
+            if (code != Player.ErrorCode.Success)
+                DisposePlayer();
         }
 
         public void LoadPlayerDropDown()
@@ -84,7 +81,6 @@ namespace TerrariaInvEdit.UI.Forms
                         {
                             if (string.IsNullOrEmpty(temp.Name))
                             {
-                                continue;
                             }
                             else
                             {
@@ -110,9 +106,10 @@ namespace TerrariaInvEdit.UI.Forms
         {
             Player plr = (Player)e.ClickedItem.Tag;
             LastPath = plr.FilePath;
-            plr.PlayerLoaded += new Player.PlayerLoadedEventHandler(PPlayer_PlayerLoaded);
-            plr.PlayerSaved += new Player.PlayerSavedEventHandler(PPlayer_PlayerSaved);
-            if (!plr.LoadPlayer())
+            plr.PlayerLoaded += PPlayer_PlayerLoaded;
+            plr.PlayerSaved += PPlayer_PlayerSaved;
+            Player.ErrorCode code = plr.LoadPlayer();
+            if (code != Player.ErrorCode.Success)
             {
                 DisposePlayer();
                 LastPath = string.Empty;
@@ -140,7 +137,7 @@ namespace TerrariaInvEdit.UI.Forms
             numMaxMP.Value = PPlayer.MaxMP < 0 ? 0 : PPlayer.MaxMP;
             comboDifficulty.SelectedIndex = p.Difficulty;
             numSkinVariant.Value = p.SkinVariant;
-            chkHBLocked.Checked = p.HBLocked;
+            chkHBLocked.Checked = p.HotBarLocked;
             chkExtraAccessory.Checked = p.ExtraAccessory;
             numAQuests.Value = p.AnglerQuestsFinished;
             numTaxMoney.Value = p.TaxMoney;
@@ -474,10 +471,9 @@ namespace TerrariaInvEdit.UI.Forms
             if (PPlayer != null)
             {
                 savFileDialog.FileName = PPlayer.Name;
-                if (savFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                if (savFileDialog.ShowDialog() != DialogResult.OK)
                     return;
-                else
-                    SavePlayer(savFileDialog.FileName);
+                SavePlayer(savFileDialog.FileName);
             }
         }
 
@@ -514,7 +510,7 @@ namespace TerrariaInvEdit.UI.Forms
                 PPlayer.MaxMP = (int)numMaxMP.Value;
                 PPlayer.Difficulty = (byte)comboDifficulty.SelectedIndex;
                 PPlayer.SkinVariant = (byte)numSkinVariant.Value;
-                PPlayer.HBLocked = chkHBLocked.Checked;
+                PPlayer.HotBarLocked = chkHBLocked.Checked;
                 PPlayer.ExtraAccessory = chkExtraAccessory.Checked;
                 PPlayer.TaxMoney = Convert.ToInt32(numTaxMoney.Value);
                 PPlayer.AnglerQuestsFinished = Convert.ToInt32(numAQuests.Value);
@@ -1000,7 +996,7 @@ namespace TerrariaInvEdit.UI.Forms
                         break;
                 }
 
-                this.Loading = true;
+                Loading = true;
                 Item item;
                 int index;
                 switch (clickedNode.Name.ToLower())
@@ -1047,7 +1043,7 @@ namespace TerrariaInvEdit.UI.Forms
                         splitContainer.Panel2Collapsed = true;
                         break;
                 }
-                this.Loading = false;
+                Loading = false;
             }
         }
         #endregion

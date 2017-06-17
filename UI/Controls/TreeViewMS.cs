@@ -26,7 +26,7 @@ namespace TerrariaInvEdit.UI.Controls
 
         #region Selected Node(s) Properties
 
-        private List<TreeNode> m_SelectedNodes = null;
+        private List<TreeNode> m_SelectedNodes;
         public List<TreeNode> SelectedNodes
         {
             get
@@ -77,9 +77,9 @@ namespace TerrariaInvEdit.UI.Controls
             // keyboard to select nodes
             try
             {
-                if (m_SelectedNode == null && this.TopNode != null)
+                if (m_SelectedNode == null && TopNode != null)
                 {
-                    ToggleNode(this.TopNode, true);
+                    ToggleNode(TopNode, true);
                 }
 
                 base.OnGotFocus(e);
@@ -99,7 +99,7 @@ namespace TerrariaInvEdit.UI.Controls
             {
                 base.SelectedNode = null;
 
-                TreeNode node = this.GetNodeAt(e.Location);
+                TreeNode node = GetNodeAt(e.Location);
                 if (node != null)
                 {
                     int leftBound = node.Bounds.X; // - 20; // Allow user to click on image
@@ -135,7 +135,7 @@ namespace TerrariaInvEdit.UI.Controls
             try
             {
                 // Check to see if a node was clicked on 
-                TreeNode node = this.GetNodeAt(e.Location);
+                TreeNode node = GetNodeAt(e.Location);
                 if (node != null)
                 {
                     if (ModifierKeys == Keys.None && m_SelectedNodes.Contains(node))
@@ -232,9 +232,9 @@ namespace TerrariaInvEdit.UI.Controls
             {
                 // Nothing is selected in the tree, this isn't a good state
                 // select the top node
-                if (m_SelectedNode == null && this.TopNode != null)
+                if (m_SelectedNode == null && TopNode != null)
                 {
-                    ToggleNode(this.TopNode, true);
+                    ToggleNode(TopNode, true);
                 }
 
                 // Nothing is still selected in the tree, this isn't a good state, leave.
@@ -290,9 +290,9 @@ namespace TerrariaInvEdit.UI.Controls
                         if (m_SelectedNode.Parent == null)
                         {
                             // Select all of the root nodes up to this point 
-                            if (this.Nodes.Count > 0)
+                            if (Nodes.Count > 0)
                             {
-                                SelectNode(this.Nodes[0]);
+                                SelectNode(Nodes[0]);
                             }
                         }
                         else
@@ -304,9 +304,9 @@ namespace TerrariaInvEdit.UI.Controls
                     else
                     {
                         // Select this first node in the tree
-                        if (this.Nodes.Count > 0)
+                        if (Nodes.Count > 0)
                         {
-                            SelectSingleNode(this.Nodes[0]);
+                            SelectSingleNode(Nodes[0]);
                         }
                     }
                 }
@@ -317,9 +317,9 @@ namespace TerrariaInvEdit.UI.Controls
                         if (m_SelectedNode.Parent == null)
                         {
                             // Select the last ROOT node in the tree
-                            if (this.Nodes.Count > 0)
+                            if (Nodes.Count > 0)
                             {
-                                SelectNode(this.Nodes[this.Nodes.Count - 1]);
+                                SelectNode(Nodes[Nodes.Count - 1]);
                             }
                         }
                         else
@@ -330,11 +330,11 @@ namespace TerrariaInvEdit.UI.Controls
                     }
                     else
                     {
-                        if (this.Nodes.Count > 0)
+                        if (Nodes.Count > 0)
                         {
                             // Select the last node visible node in the tree.
                             // Don't expand branches incase the tree is virtual
-                            TreeNode ndLast = this.Nodes[0].LastNode;
+                            TreeNode ndLast = Nodes[0].LastNode;
                             while (ndLast.IsExpanded && (ndLast.LastNode != null))
                             {
                                 ndLast = ndLast.LastNode;
@@ -346,7 +346,7 @@ namespace TerrariaInvEdit.UI.Controls
                 else if (e.KeyCode == Keys.PageUp)
                 {
                     // Select the highest node in the display
-                    int nCount = this.VisibleCount;
+                    int nCount = VisibleCount;
                     TreeNode ndCurrent = m_SelectedNode;
                     while ((nCount) > 0 && (ndCurrent.PrevVisibleNode != null))
                     {
@@ -358,7 +358,7 @@ namespace TerrariaInvEdit.UI.Controls
                 else if (e.KeyCode == Keys.PageDown)
                 {
                     // Select the lowest node in the display
-                    int nCount = this.VisibleCount;
+                    int nCount = VisibleCount;
                     TreeNode ndCurrent = m_SelectedNode;
                     while ((nCount) > 0 && (ndCurrent.NextVisibleNode != null))
                     {
@@ -543,8 +543,8 @@ namespace TerrariaInvEdit.UI.Controls
             {
                 foreach (TreeNode node in m_SelectedNodes)
                 {
-                    node.BackColor = this.BackColor;
-                    node.ForeColor = this.ForeColor;
+                    node.BackColor = BackColor;
+                    node.ForeColor = ForeColor;
                 }
             }
             finally
@@ -581,14 +581,13 @@ namespace TerrariaInvEdit.UI.Controls
             else
             {
                 m_SelectedNodes.Remove(node);
-                node.BackColor = this.BackColor;
-                node.ForeColor = this.ForeColor;
+                node.BackColor = BackColor;
+                node.ForeColor = ForeColor;
             }
         }
 
         private void HandleException(Exception ex)
         {
-            return;
             //ExceptionHandler handler = new ExceptionHandler(ex);
             //if (handler.canShow)
             //    handler.Show();

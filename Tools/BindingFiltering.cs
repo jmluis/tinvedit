@@ -13,10 +13,6 @@ namespace TerrariaInvEdit.Tools
         private List<T> originalListValue = new List<T>();
         public List<T> OriginalList { get { return originalListValue; } }
 
-        public FilteredBindingList()
-        {
-        }
-
         #region Searching
         protected override bool SupportsSearchingCore { get { return true; } }
 
@@ -32,7 +28,7 @@ namespace TerrariaInvEdit.Tools
                 // value matches the property value.
                 for (int i = 0; i < Count; ++i)
                 {
-                    item = (T)Items[i];
+                    item = Items[i];
                     if (propInfo.GetValue(item, null).Equals(key))
                         return i;
                 }
@@ -50,8 +46,7 @@ namespace TerrariaInvEdit.Tools
             // FindCore method.
             if (prop == null)
                 return -1;
-            else
-                return FindCore(prop, key);
+            return FindCore(prop, key);
         }
 
         #endregion Searching
@@ -78,8 +73,7 @@ namespace TerrariaInvEdit.Tools
             // FindCore method.
             if (prop == null)
                 throw new ArgumentException(propertyName + " is not a valid property for type:" + typeof(T).Name);
-            else
-                ApplySortCore(prop, direction);
+            ApplySortCore(prop, direction);
         }
 
         protected override void ApplySortCore(PropertyDescriptor prop, ListSortDirection direction)
@@ -101,7 +95,7 @@ namespace TerrariaInvEdit.Tools
                 if (sortPropertyValue != null)
                 {
                     // Loop through each item, adding it the the sortedItems ArrayList.
-                    foreach (Object item in this.Items)
+                    foreach (Object item in Items)
                     {
                         unsortedItems.Add((T)item);
                         sortedList.Add(prop.GetValue(item));
@@ -116,7 +110,7 @@ namespace TerrariaInvEdit.Tools
                 if (direction == ListSortDirection.Descending)
                     sortedList.Reverse();
 
-                for (int i = 0; i < this.Count; i++)
+                for (int i = 0; i < Count; i++)
                 {
                     int position = Find(prop.Name, sortedList[i]);
                     if (position != i && position > 0)
@@ -137,29 +131,29 @@ namespace TerrariaInvEdit.Tools
             }
             else
                 // If the property type does not implement IComparable, let the user know.
-                throw new InvalidOperationException("Cannot sort by " + prop.Name + ". This" + prop.PropertyType.ToString() + " does not implement IComparable");
+                throw new InvalidOperationException("Cannot sort by " + prop.Name + ". This" + prop.PropertyType + " does not implement IComparable");
         }
 
         protected override void RemoveSortCore()
         {
-            this.RaiseListChangedEvents = false;
+            RaiseListChangedEvents = false;
             // Ensure the list has been sorted.
             if (unsortedItems != null && originalListValue.Count > 0)
             {
-                this.Clear();
+                Clear();
                 if (Filter != null)
                 {
-                    unsortedItems.Filter = this.Filter;
+                    unsortedItems.Filter = Filter;
                     foreach (T item in unsortedItems)
-                        this.Add(item);
+                        Add(item);
                 }
                 else
                 {
                     foreach (T item in originalListValue)
-                        this.Add(item);
+                        Add(item);
                 }
                 isSortedValue = false;
-                this.RaiseListChangedEvents = true;
+                RaiseListChangedEvents = true;
                 // Raise the list changed event, indicating a reset, and index of -1.
                 OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
             }
@@ -175,9 +169,9 @@ namespace TerrariaInvEdit.Tools
         {
             // Check to see if the item is added to the end of the list,
             // and if so, re-sort the list.
-            if (IsSortedCore && itemIndex > 0 && itemIndex == this.Count - 1)
+            if (IsSortedCore && itemIndex > 0 && itemIndex == Count - 1)
             {
-                ApplySortCore(this.sortPropertyValue, this.sortDirectionValue);
+                ApplySortCore(sortPropertyValue, sortDirectionValue);
                 base.EndNew(itemIndex);
             }
         }
@@ -196,7 +190,7 @@ namespace TerrariaInvEdit.Tools
         #endregion AdvancedSorting
 
         #region Filtering
-        private string filterValue = null;
+        private string filterValue;
         public bool SupportsFiltering { get { return true; } }
         public void RemoveFilter() { if (Filter != null) Filter = null; }
 
@@ -223,18 +217,18 @@ namespace TerrariaInvEdit.Tools
                 else
                 {
                     int count = 0;
-                    string[] matches = value.Split(new string[] { " AND " }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] matches = value.Split(new[] { " AND " }, StringSplitOptions.RemoveEmptyEntries);
                     SingleFilterInfo[] Filters = new SingleFilterInfo[matches.Length];
 
                     // Check to see if the filter was set previously.
                     // Also, check if current filter is a subset of the previous filter.
                     // Also, check if another filter was added
-                    if ((filterValue != null && matches.Length != filterValue.Split(new string[] { " AND " }, StringSplitOptions.RemoveEmptyEntries).Length) || (!String.IsNullOrEmpty(filterValue) && !value.Contains(filterValue)))
+                    if ((filterValue != null && matches.Length != filterValue.Split(new[] { " AND " }, StringSplitOptions.RemoveEmptyEntries).Length) || (!String.IsNullOrEmpty(filterValue) && !value.Contains(filterValue)))
                         ResetList();
 
                     while (count < matches.Length)
                     {
-                        string filterPart = matches[count].ToString();
+                        string filterPart = matches[count];
 
                         Filters[count] = ParseFilter(filterPart);
                         count++;
@@ -270,9 +264,9 @@ namespace TerrariaInvEdit.Tools
 
         private void ResetList()
         {
-            this.ClearItems();        
+            ClearItems();
             foreach (T t in originalListValue)
-                this.Items.Add(t);
+                Items.Add(t);
             if (IsSortedCore)
                 ApplySortCore(SortPropertyCore, SortDirectionCore);
         }
@@ -296,9 +290,9 @@ namespace TerrariaInvEdit.Tools
                 if (!String.IsNullOrEmpty(Filter))
                 //if (Filter == null || Filter == "")
                 {
-                    string cachedFilter = this.Filter;
-                    this.Filter = "";
-                    this.Filter = cachedFilter;
+                    string cachedFilter = Filter;
+                    Filter = "";
+                    Filter = cachedFilter;
                 }
             }
             // Remove the new item from the original list.
@@ -343,10 +337,10 @@ namespace TerrariaInvEdit.Tools
                     }
                 }
             }
-            this.ClearItems();
+            ClearItems();
             foreach (T itemFound in results)
             {
-                this.Add(itemFound);
+                Add(itemFound);
             }
         }
 
@@ -355,7 +349,7 @@ namespace TerrariaInvEdit.Tools
             SingleFilterInfo filterInfo = new SingleFilterInfo();
             filterInfo.OperatorValue = DetermineFilterOperator(filterPart);
 
-            string[] filterStringParts = filterPart.Split(new char[] { (char)filterInfo.OperatorValue });
+            string[] filterStringParts = filterPart.Split((char)filterInfo.OperatorValue);
             filterInfo.PropName = filterStringParts[0].Replace("[", "").Replace("]", "").Replace(" AND ", "").Trim();
 
             // Get the property descriptor for the filter property name.
@@ -375,7 +369,7 @@ namespace TerrariaInvEdit.Tools
             }
             catch (NotSupportedException)
             {
-                throw new InvalidOperationException("Specified filter value " + comparePartNoQuotes + " can not be converted from string. Implement a type converter for " + filterPropDesc.PropertyType.ToString());
+                throw new InvalidOperationException("Specified filter value " + comparePartNoQuotes + " can not be converted from string. Implement a type converter for " + filterPropDesc.PropertyType);
             }
             return filterInfo;
         }
@@ -385,14 +379,13 @@ namespace TerrariaInvEdit.Tools
             // Determine the filter's operator.
             if (Regex.IsMatch(filterPart, "[^>^<]="))
                 return FilterOperator.EqualTo;
-            else if (Regex.IsMatch(filterPart, "[^>^<]"))
+            if (Regex.IsMatch(filterPart, "[^>^<]"))
                 return FilterOperator.Contains;
-            else if (Regex.IsMatch(filterPart, "<[^>^=]"))
+            if (Regex.IsMatch(filterPart, "<[^>^=]"))
                 return FilterOperator.LessThan;
-            else if (Regex.IsMatch(filterPart, "[^<]>[^=]"))
+            if (Regex.IsMatch(filterPart, "[^<]>[^=]"))
                 return FilterOperator.GreaterThan;
-            else
-                return FilterOperator.None;
+            return FilterOperator.None;
         }
 
         internal static string StripOffQuotes(string filterPart)

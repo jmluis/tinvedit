@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TerrariaInvEdit.Tools;
 
 namespace TerrariaInvEdit.UI.Forms
 {
@@ -45,7 +44,7 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void rText_TextChanged(object sender, EventArgs e)

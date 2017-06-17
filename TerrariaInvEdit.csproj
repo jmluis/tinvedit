@@ -144,7 +144,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Terraria\Player.cs" />
     <Compile Include="Tools\BindingFiltering.cs" />
     <Compile Include="Tools\Extensions.cs" />
     <Compile Include="UI\Controls\ColoredProgressBar.cs">
@@ -294,6 +293,9 @@
       <Project>{c958f112-3f9f-4593-967e-d76f7c4892b5}</Project>
       <Name>TerraLimb</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Terraria\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">

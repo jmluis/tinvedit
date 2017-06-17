@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using TerrariaInvEdit.Properties;
 
 namespace TerrariaInvEdit.UI.Forms
 {
@@ -36,7 +37,7 @@ namespace TerrariaInvEdit.UI.Forms
 
         void recal()
         {
-            Bitmap img = (Bitmap)Properties.Resources.ResourceManager.GetObject("Player_Hair_" + (CurrentHair + 1));
+            Bitmap img = (Bitmap)Resources.ResourceManager.GetObject("Player_Hair_" + (CurrentHair + 1));
             for (int x = 0; x < img.Width; x++)
             {
                 for (int y = 0; y < img.Height; y++)
@@ -52,11 +53,11 @@ namespace TerrariaInvEdit.UI.Forms
             pictureBox1.Image = img;
         }
 
-        public System.Drawing.Color ColorMultiplier(Color c1, Color c2)
+        public Color ColorMultiplier(Color c1, Color c2)
         {
-            int _r = Math.Min((c1.R + c2.R)/2, 255);
-            int _g = Math.Min((c1.G + c2.G)/2, 255);
-            int _b = Math.Min((c1.B + c2.B)/2, 255);
+            int _r = Math.Min((c1.R + c2.R) / 2, 255);
+            int _g = Math.Min((c1.G + c2.G) / 2, 255);
+            int _b = Math.Min((c1.B + c2.B) / 2, 255);
 
             return Color.FromArgb(_r, _g, _b);
         }
@@ -64,7 +65,7 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

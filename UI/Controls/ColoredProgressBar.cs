@@ -17,47 +17,47 @@ namespace TerrariaInvEdit.UI.Controls
 
         public ColoredProgressBar()
         {
-            this.SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
-            this.ForeColor = Color.Green;
-            this.BackColor = Color.DarkGreen;
-            this.BaseBrush = new SolidBrush(Color.FromArgb(251, 251, 251));
-            this.Line = new Pen(Color.FromArgb(80, Color.White));
+            SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            ForeColor = Color.Green;
+            BackColor = Color.DarkGreen;
+            BaseBrush = new SolidBrush(Color.FromArgb(251, 251, 251));
+            Line = new Pen(Color.FromArgb(80, Color.White));
         }
 
         public void InitBrushes()
         {
             Rectangle ProgressRect = GetProgressRect();
-            Rectangle HighBar = new Rectangle(1, 1, ProgressRect.Width, (int)Math.Round(Math.Truncate(unchecked((double)ProgressRect.Height * 0.45))));
+            Rectangle HighBar = new Rectangle(1, 1, ProgressRect.Width, (int)Math.Round(Math.Truncate(ProgressRect.Height * 0.45)));
 
             var ColorBlend = new ColorBlend();
-            ColorBlend.Positions = new float[] { 0f, 0.55f, 1f };
-            ColorBlend.Colors = new Color[] { this.BackColor, this.ForeColor, this.BackColor };
+            ColorBlend.Positions = new[] { 0f, 0.55f, 1f };
+            ColorBlend.Colors = new[] { BackColor, ForeColor, BackColor };
 
-            this.BackgroudBrush = new LinearGradientBrush(ProgressRect, this.BackColor, this.ForeColor, LinearGradientMode.Vertical);
-            this.BackgroudBrush.InterpolationColors = ColorBlend;
-
-            ColorBlend = new ColorBlend();
-            ColorBlend.Positions = new float[] { 0f, 0.35f, 0.65f, 1f };
-            ColorBlend.Colors = new Color[] { Color.FromArgb(200, this.ForeColor), Color.FromArgb(100, this.BackColor), Color.FromArgb(100, this.BackColor), Color.FromArgb(200, this.ForeColor) };
-
-            this.ForegroudBrush = new LinearGradientBrush(ProgressRect, this.ForeColor, this.BackColor, LinearGradientMode.Horizontal);
-            this.ForegroudBrush.InterpolationColors = ColorBlend;
-            this.ForegroudBrush.GammaCorrection = true;
+            BackgroudBrush = new LinearGradientBrush(ProgressRect, BackColor, ForeColor, LinearGradientMode.Vertical);
+            BackgroudBrush.InterpolationColors = ColorBlend;
 
             ColorBlend = new ColorBlend();
-            ColorBlend.Positions = new float[] { 0f, 0.3f, 1f };
-            ColorBlend.Colors = new Color[] { Color.FromArgb(120, Color.White), Color.FromArgb(110, Color.White), Color.FromArgb(80, Color.White) };
+            ColorBlend.Positions = new[] { 0f, 0.35f, 0.65f, 1f };
+            ColorBlend.Colors = new[] { Color.FromArgb(200, ForeColor), Color.FromArgb(100, BackColor), Color.FromArgb(100, BackColor), Color.FromArgb(200, ForeColor) };
 
-            this.HueBrush = new LinearGradientBrush(HighBar, Color.White, Color.White, LinearGradientMode.Vertical);
-            this.HueBrush.InterpolationColors = ColorBlend;
-            this.HueBrush.GammaCorrection = true;
+            ForegroudBrush = new LinearGradientBrush(ProgressRect, ForeColor, BackColor, LinearGradientMode.Horizontal);
+            ForegroudBrush.InterpolationColors = ColorBlend;
+            ForegroudBrush.GammaCorrection = true;
+
+            ColorBlend = new ColorBlend();
+            ColorBlend.Positions = new[] { 0f, 0.3f, 1f };
+            ColorBlend.Colors = new[] { Color.FromArgb(120, Color.White), Color.FromArgb(110, Color.White), Color.FromArgb(80, Color.White) };
+
+            HueBrush = new LinearGradientBrush(HighBar, Color.White, Color.White, LinearGradientMode.Vertical);
+            HueBrush.InterpolationColors = ColorBlend;
+            HueBrush.GammaCorrection = true;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Rectangle Base = new Rectangle(0, 0, this.Width, this.Height);
+            Rectangle Base = new Rectangle(0, 0, Width, Height);
             Rectangle ProgressRect = GetProgressRect();
-            Rectangle HighBar = new Rectangle(1, 1, ProgressRect.Width, (int)Math.Round(Math.Truncate(unchecked((double)ProgressRect.Height * 0.45))));
+            Rectangle HighBar = new Rectangle(1, 1, ProgressRect.Width, (int)Math.Round(Math.Truncate(ProgressRect.Height * 0.45)));
 
             if (ProgressBarRenderer.IsSupported)
                 ProgressBarRenderer.DrawHorizontalBar(e.Graphics, Base);
@@ -76,10 +76,10 @@ namespace TerrariaInvEdit.UI.Controls
 
         public Rectangle GetProgressRect()
         {
-            Rectangle Result = new Rectangle(0, 0, this.Width, this.Height);
+            Rectangle Result = new Rectangle(0, 0, Width, Height);
             Size size = new Size(-1, -1);
             Result.Inflate(size);
-            Result.Width = (int)(Result.Width * ((double)this.Value / this.Maximum));
+            Result.Width = (int)(Result.Width * ((double)Value / Maximum));
             if (Result.Width == 0) Result.Width = 1;
 
             return Result;
@@ -88,7 +88,7 @@ namespace TerrariaInvEdit.UI.Controls
 
         protected override void OnSizeChanged(EventArgs e)
         {
-            base.OnSizeChanged(e); 
+            base.OnSizeChanged(e);
             InitBrushes();
         }
     }

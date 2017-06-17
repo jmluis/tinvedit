@@ -1,11 +1,14 @@
-﻿namespace TerrariaInvEdit.UI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace TerrariaInvEdit.UI.Forms
 {
     partial class ColorChoose
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -200,17 +203,17 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox resultBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar rTrack;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TrackBar bTrack;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TrackBar gTrack;
-        private System.Windows.Forms.TextBox rText;
-        private System.Windows.Forms.TextBox gText;
-        private System.Windows.Forms.TextBox bText;
-        private System.Windows.Forms.Button btnSave;
+        private PictureBox resultBox;
+        private Label label1;
+        private TrackBar rTrack;
+        private Label label2;
+        private Label label3;
+        private TrackBar bTrack;
+        private Label label4;
+        private TrackBar gTrack;
+        private TextBox rText;
+        private TextBox gText;
+        private TextBox bText;
+        private Button btnSave;
     }
 }
