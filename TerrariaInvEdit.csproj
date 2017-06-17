@@ -231,6 +231,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Images\Buff\Buff_0.png" />
+    <None Include="Resources\Images\Female\Female_Shirt2.png" />
+    <None Include="Resources\Images\Female\Female_Shoes.png" />
+    <None Include="Resources\Images\Female\Female_Undershirt.png" />
+    <None Include="Resources\Images\Female\Female_Undershirt2.png" />
+    <None Include="Resources\Images\Female\Female_Pants.png" />
+    <None Include="Resources\Images\Female\Female_Shirt.png" />
     <Content Include="Resources\Images\Player\Player_Eyes.png" />
     <Content Include="Resources\Images\Player\Player_Eye_Whites.png" />
     <Content Include="Resources\Images\Player\Player_Hands.png" />
@@ -294,9 +300,7 @@
       <Name>TerraLimb</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Terraria\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">
     <ItemGroup>

@@ -75,7 +75,6 @@ namespace TerrariaInvEdit.UI.Forms
                     if (Path.GetExtension(file) == ".plr")
                     {
                         Player temp = Player.getMiniPlayer(file);
-                        temp.SavePlayer();
 
                         if (temp != null)
                         {

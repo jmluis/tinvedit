@@ -19,7 +19,6 @@ namespace TerrariaInvEdit
 #if DEBUG
             config.Environment = "development";
 #endif
-#if !DEBUG
             Rollbar.Init(config);
 
             AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
@@ -31,7 +30,6 @@ namespace TerrariaInvEdit
                     {
                         Rollbar.Report(args.ExceptionObject as System.Exception);
                     };
-#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Rollbar.Init(new RollbarConfig(Resources.Rollbar_Access));
