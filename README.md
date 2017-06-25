@@ -14,8 +14,7 @@ Code is available under the General Public License v3.0
 * Newtonsoft.Json ~10.0
 * Rollbar ~0.30
 * DotNetZip ~1.10
-* TerraLimb
-> note: TerraLimb is not available at this time, use compiled version from release above as reference
+* [TerraLimb][terralimb]
 
 
 **Free Software, Hell Yeah!**
@@ -25,4 +24,5 @@ Code is available under the General Public License v3.0
    [buffs]: <https://cdn.chbshoot.me/tinvedit/img/buffs.PNG>
    [looks]: <https://cdn.chbshoot.me/tinvedit/img/looks.PNG>
    [logo]: <https://cdn.chbshoot.me/tinvedit/img/favicon.png>
-   [download]: <https://u.chbshoot.me/d/0> 
+   [download]: <https://u.chbshoot.me/d/0>
+   [terralimb]: <https://github.com/ChbShoot/terralimb>
