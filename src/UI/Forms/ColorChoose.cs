@@ -25,6 +25,7 @@ namespace TerrariaInvEdit.UI.Forms
     public partial class ColorChoose : Form
     {
         public Color curColor;
+
         public ColorChoose(Color col)
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace TerrariaInvEdit.UI.Forms
             recal();
         }
 
-        void recal()
+        private void recal()
         {
             curColor = Color.FromArgb(rTrack.Value, gTrack.Value, bTrack.Value);
 
@@ -71,7 +72,9 @@ namespace TerrariaInvEdit.UI.Forms
             {
                 rTrack.Value = byte.Parse(rText.Text);
             }
-            catch { }
+            catch
+            {
+            }
             recal();
         }
 
@@ -81,7 +84,9 @@ namespace TerrariaInvEdit.UI.Forms
             {
                 gTrack.Value = byte.Parse(gText.Text);
             }
-            catch { }
+            catch
+            {
+            }
             recal();
         }
 
@@ -91,7 +96,9 @@ namespace TerrariaInvEdit.UI.Forms
             {
                 bTrack.Value = byte.Parse(bText.Text);
             }
-            catch { }
+            catch
+            {
+            }
             recal();
         }
     }
