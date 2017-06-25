@@ -1348,7 +1348,7 @@ namespace TerrariaInvEdit.UI.Forms
                         Buff buff = (Buff)node.Tag;
                         Buff newBuff;
 
-                        string buffname = (string)comboBuff.SelectedItem;
+                        string buffname = comboBuff.SelectedItem.ToString();
                         int buffId = comboBuff.SelectedIndex;
                         int time = ((int)numTime.Value) * 60;
                         if (buffname == "(Empty)")

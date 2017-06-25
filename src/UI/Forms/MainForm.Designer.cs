@@ -15,11 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with Terraria Inventory Editor.  If not, see <http://www.gnu.org/licenses/>.
 */
+using AutoUpdaterDotNET;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
-using AutoUpdaterDotNET;
 using TerrariaInvEdit.Tools;
 using TerrariaInvEdit.UI.Controls;
 
