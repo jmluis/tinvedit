@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.IO;
+using System.Resources;
 using System.Windows.Forms;
 using Ionic.Zip;
 using TerraLimb;
@@ -1153,6 +1156,7 @@ namespace TerrariaInvEdit.UI.Forms
                     {
                         Item[] items = (Item[])node.Parent.Tag;
                         Item item = (Item)node.Tag;
+                        item.ItemName = node.Text;
                         Item kpItm = (Item)lbItems.SelectedItem;
                         int stack = (int)numStackSize.Value;
                         int max = Constants.Items[kpItm.ItemID].MaxStack;
@@ -1192,11 +1196,13 @@ namespace TerrariaInvEdit.UI.Forms
                         node.Tag = items[item.Index];
                         node.Text = strPrefix + Constants.Items[items[item.Index].ItemID].ItemName + " " + items[item.Index].Nick;
                         node.BackColor = (items[item.Index].IsFavorite ? Color.LightYellow : Color.White);
+                        node.TreeView.Refresh();
                         if (node.Name == "armor")
                             DrawCharacter(true);
                     }
                 }
             }
+            treeInv.Refresh();
         }
         #endregion
 

@@ -161,12 +161,6 @@
     <Compile Include="UI\Forms\ColorChoose.Designer.cs">
       <DependentUpon>ColorChoose.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\HairChoose.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\HairChoose.designer.cs">
-      <DependentUpon>HairChoose.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,9 +179,6 @@
       <DependentUpon>ColorChoose.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\HairChoose.resx">
-      <DependentUpon>HairChoose.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -197,7 +188,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -257,8 +247,8 @@
     <None Include="Resources\Images\door_out.png" />
     <None Include="Resources\Images\drive-download1.png" />
     <None Include="Resources\Images\folder_user.png" />
-    <Content Include="favicon.ico" />
-    <Content Include="icon.ico" />
+    <EmbeddedResource Include="favicon.ico" />
+    <EmbeddedResource Include="icon.ico" />
     <Content Include="Resources\Images\icon.ico" />
     <None Include="Resources\Images\page_refresh.png" />
     <None Include="Resources\Images\shootavy.png" />

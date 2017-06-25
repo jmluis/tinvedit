@@ -233,39 +233,9 @@ namespace TerrariaInvEdit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap kdev {
-            get {
-                object obj = ResourceManager.GetObject("kdev", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap map_arrow {
-            get {
-                object obj = ResourceManager.GetObject("map_arrow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap money_arrow {
             get {
                 object obj = ResourceManager.GetObject("money_arrow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap page_refresh {
-            get {
-                object obj = ResourceManager.GetObject("page_refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -445,16 +415,6 @@ namespace TerrariaInvEdit.Properties {
         internal static System.Drawing.Bitmap Skin_Legs {
             get {
                 object obj = ResourceManager.GetObject("Skin_Legs", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap user_arrow {
-            get {
-                object obj = ResourceManager.GetObject("user_arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
