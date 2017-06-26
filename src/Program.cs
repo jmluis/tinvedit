@@ -33,10 +33,8 @@ namespace TerrariaInvEdit
         [STAThread]
         private static void Main()
         {
+#if !DEBUG
             var config = new RollbarConfig(Resources.Rollbar_Access);
-#if DEBUG
-            config.Environment = "development";
-#endif
             Rollbar.Init(config);
 
             AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
@@ -45,9 +43,10 @@ namespace TerrariaInvEdit
             {
                 Rollbar.Report(args.ExceptionObject as Exception);
             };
+            Rollbar.Init(new RollbarConfig(Resources.Rollbar_Access));
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Rollbar.Init(new RollbarConfig(Resources.Rollbar_Access));
             Application.Run(MainF = new MainForm());
         }
 

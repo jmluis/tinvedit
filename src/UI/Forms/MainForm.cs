@@ -58,7 +58,7 @@ namespace TerrariaInvEdit.UI.Forms
 #endif
             splitContainer.Panel2Collapsed = true;
             splitContainer1.Panel2Collapsed = true;
-            Height = (int) (270 * (dpiY / 100)) + 10;
+            Height = (int)(270 * (dpiY / 100)) + 10;
             pbItem.SizeMode = PictureBoxSizeMode.Zoom;
             Data = ZipFile.Read(new MemoryStream(Resources.Data));
             Constants.Initialize(GetJson("package.json"), GetJson("items.json"), GetJson("prefixes.json"),
@@ -78,7 +78,7 @@ namespace TerrariaInvEdit.UI.Forms
                 {
                     var Stream = ZipData.OpenReader();
                     var ImageData = new byte[Stream.Length];
-                    Stream.Read(ImageData, 0, (int) Stream.Length);
+                    Stream.Read(ImageData, 0, (int)Stream.Length);
                     TextureCache.Add(Path, Result = new Bitmap(new MemoryStream(ImageData)));
                     Stream.Dispose();
                 }
@@ -89,7 +89,7 @@ namespace TerrariaInvEdit.UI.Forms
                 if (Result == null)
                     throw new FileNotFoundException($"Unable to find Texture at Path \"{Path}\"");
             }
-            return (Bitmap) Result.Clone();
+            return (Bitmap)Result.Clone();
         }
 
         public string GetJson(string format, params object[] args)
@@ -155,7 +155,7 @@ namespace TerrariaInvEdit.UI.Forms
         {
             if (PPlayer != null)
             {
-                PPlayer.SkinVariant = (byte) numSkinVariant.Value;
+                PPlayer.SkinVariant = (byte)numSkinVariant.Value;
                 DrawCharacter();
             }
         }
@@ -219,7 +219,7 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void btnOpen_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            var plr = (Player) e.ClickedItem.Tag;
+            var plr = (Player)e.ClickedItem.Tag;
             LastPath = plr.FilePath;
             plr.PlayerLoaded += PPlayer_PlayerLoaded;
             plr.PlayerSaved += PPlayer_PlayerSaved;
@@ -243,7 +243,7 @@ namespace TerrariaInvEdit.UI.Forms
         private void PPlayer_PlayerLoaded(object sender, EventArgs e)
         {
             Loading = true;
-            var p = (Player) sender;
+            var p = (Player)sender;
             PPlayer = p;
             txtTerrariaVersion.Text = PPlayer.TerrariaVersion.ToString();
             txtName.Text = PPlayer.Name;
@@ -499,7 +499,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
                 tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
-                tempNode2.Tag = "item";
+                tempNode2.Name = "item";
                 tempNode.Nodes.Add(tempNode2);
             }
         }
@@ -530,10 +530,7 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void AddPurse(Player player)
         {
-            var tempNode = new TreeNode();
-            var tempNode2 = new TreeNode();
-
-            tempNode = new TreeNode("Coin Purse");
+            var tempNode = new TreeNode("Coin Purse");
             tempNode.Tag = player.Purse;
             tempNode.Name = "purseNode";
             treeInv.Nodes.Add(tempNode);
@@ -545,7 +542,7 @@ namespace TerrariaInvEdit.UI.Forms
                     prefix = "";
                 else
                     prefix = "[" + Constants.Prefixes[item.Prefix] + "]";
-                tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
+                var tempNode2 = new TreeNode(prefix + Constants.Items[item.ItemID].ItemName + " " + item.Nick);
                 tempNode2.Tag = item;
                 tempNode2.Name = "item";
                 tempNode.Nodes.Add(tempNode2);
@@ -554,10 +551,7 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void AddBuffs(Player player)
         {
-            var tempNode = new TreeNode();
-            var tempNode2 = new TreeNode();
-
-            tempNode = new TreeNode("Buffs");
+            var tempNode = new TreeNode("Buffs");
             tempNode.Tag = player.Buffs;
             tempNode.Name = "buffNode";
             treeBuff.Nodes.Add(tempNode);
@@ -569,7 +563,7 @@ namespace TerrariaInvEdit.UI.Forms
 
                 if (string.IsNullOrEmpty(buff.BuffName))
                     buff.BuffName = "(Empty)";
-                tempNode2 = new TreeNode(buff.BuffName);
+                var tempNode2 = new TreeNode(buff.BuffName);
                 tempNode2.Tag = buff;
                 tempNode2.ImageKey = buff.BuffID.ToString();
                 tempNode2.SelectedImageKey = buff.BuffID.ToString();
@@ -630,12 +624,12 @@ namespace TerrariaInvEdit.UI.Forms
             if (Errors.Count == 0)
             {
                 PPlayer.Name = txtName.Text;
-                PPlayer.HP = (int) numHP.Value;
-                PPlayer.MaxHP = (int) numMaxHP.Value;
-                PPlayer.MP = (int) numMP.Value;
-                PPlayer.MaxMP = (int) numMaxMP.Value;
-                PPlayer.Difficulty = (byte) comboDifficulty.SelectedIndex;
-                PPlayer.SkinVariant = (byte) numSkinVariant.Value;
+                PPlayer.HP = (int)numHP.Value;
+                PPlayer.MaxHP = (int)numMaxHP.Value;
+                PPlayer.MP = (int)numMP.Value;
+                PPlayer.MaxMP = (int)numMaxMP.Value;
+                PPlayer.Difficulty = (byte)comboDifficulty.SelectedIndex;
+                PPlayer.SkinVariant = (byte)numSkinVariant.Value;
                 PPlayer.HotBarLocked = chkHBLocked.Checked;
                 PPlayer.ExtraAccessory = chkExtraAccessory.Checked;
                 PPlayer.TaxMoney = Convert.ToInt32(numTaxMoney.Value);
@@ -675,7 +669,7 @@ namespace TerrariaInvEdit.UI.Forms
             if (PPlayer != null)
                 if (numHP.Value <= pbHealth.Maximum)
                 {
-                    pbHealth.Value = (int) numHP.Value;
+                    pbHealth.Value = (int)numHP.Value;
                     pbHealth.ForeColor = Color.DarkRed;
                 }
                 else
@@ -689,11 +683,11 @@ namespace TerrariaInvEdit.UI.Forms
         {
             if (PPlayer != null)
             {
-                pbHealth.Maximum = (int) numMaxHP.Value;
+                pbHealth.Maximum = (int)numMaxHP.Value;
 
                 if (numHP.Value <= pbHealth.Maximum)
                 {
-                    pbHealth.Value = (int) numHP.Value;
+                    pbHealth.Value = (int)numHP.Value;
                     pbHealth.ForeColor = Color.DarkRed;
                 }
                 else
@@ -713,7 +707,7 @@ namespace TerrariaInvEdit.UI.Forms
             if (PPlayer != null)
                 if (numMP.Value <= pbMana.Maximum)
                 {
-                    pbMana.Value = (int) numMP.Value;
+                    pbMana.Value = (int)numMP.Value;
                     pbMana.ForeColor = SystemColors.HotTrack;
                 }
                 else
@@ -727,11 +721,11 @@ namespace TerrariaInvEdit.UI.Forms
         {
             if (PPlayer != null)
             {
-                pbMana.Maximum = (int) numMaxMP.Value;
+                pbMana.Maximum = (int)numMaxMP.Value;
 
                 if (numMP.Value <= pbMana.Maximum)
                 {
-                    pbMana.Value = (int) numMP.Value;
+                    pbMana.Value = (int)numMP.Value;
                     pbMana.ForeColor = SystemColors.HotTrack;
                 }
                 else
@@ -1036,24 +1030,24 @@ namespace TerrariaInvEdit.UI.Forms
         public void ColorImage(ref Bitmap img, Color Color)
         {
             for (var x = 0; x < img.Width; x++)
-            for (var y = 0; y < img.Height && y < 55; y++)
-            {
-                var pixel = img.GetPixel(x, y);
+                for (var y = 0; y < img.Height && y < 55; y++)
+                {
+                    var pixel = img.GetPixel(x, y);
 
-                if (pixel != Color.FromArgb(0, 0, 0, 0))
-                    if (pixel == Color.FromArgb(255, 249, 249, 249))
-                    {
-                        img.SetPixel(x, y, Color.White);
-                    }
-                    else
-                    {
-                        var R = pixel.R * Color.R / 255;
-                        var G = pixel.G * Color.G / 255;
-                        var B = pixel.B * Color.B / 255;
+                    if (pixel != Color.FromArgb(0, 0, 0, 0))
+                        if (pixel == Color.FromArgb(255, 249, 249, 249))
+                        {
+                            img.SetPixel(x, y, Color.White);
+                        }
+                        else
+                        {
+                            var R = pixel.R * Color.R / 255;
+                            var G = pixel.G * Color.G / 255;
+                            var B = pixel.B * Color.B / 255;
 
-                        img.SetPixel(x, y, Color.FromArgb(R, G, B));
-                    }
-            }
+                            img.SetPixel(x, y, Color.FromArgb(R, G, B));
+                        }
+                }
         }
 
         #endregion
@@ -1150,7 +1144,7 @@ namespace TerrariaInvEdit.UI.Forms
                 switch (clickedNode.Name.ToLower())
                 {
                     case "dye":
-                        item = (Item) clickedNode.Tag;
+                        item = (Item)clickedNode.Tag;
                         index = item.Prefix != 0 ? item.Prefix : 0;
                         comboPrefix.SelectedIndex = index;
                         lbItems.SelectedItem = Constants.Items[item.ItemID];
@@ -1162,7 +1156,7 @@ namespace TerrariaInvEdit.UI.Forms
                         chkFavoritedItem.Visible = false;
                         break;
                     case "item":
-                        item = (Item) clickedNode.Tag;
+                        item = (Item)clickedNode.Tag;
                         index = item.Prefix != 0 ? item.Prefix : 0;
                         comboPrefix.SelectedIndex = index;
                         numStackSize.Value = item.Stack;
@@ -1176,7 +1170,7 @@ namespace TerrariaInvEdit.UI.Forms
                         numStackSize.Visible = true;
                         break;
                     case "armor":
-                        item = (Item) clickedNode.Tag;
+                        item = (Item)clickedNode.Tag;
                         index = item.Prefix != 0 ? item.Prefix : 0;
                         comboPrefix.SelectedIndex = index;
                         lbItems.SelectedItem = Constants.Items[item.ItemID];
@@ -1203,7 +1197,7 @@ namespace TerrariaInvEdit.UI.Forms
         {
             if (treeInv.SelectedNode.Parent != null && lbItems.SelectedIndex != -1 && !Loading)
             {
-                var item = (Item) lbItems.SelectedItem;
+                var item = (Item)lbItems.SelectedItem;
                 item.Stack = Constants.Items[item.ItemID].MaxStack;
                 numStackSize.Value = item.Stack;
             }
@@ -1214,20 +1208,20 @@ namespace TerrariaInvEdit.UI.Forms
             if (PPlayer != null && !Loading)
             {
                 foreach (TreeNode node2 in treeInv.Nodes)
-                foreach (TreeNode node in node2.Nodes)
-                {
-                    var item = (Item) node.Tag;
-                    var items = (Item[]) node2.Tag;
-                    if (item.ItemID == 0)
+                    foreach (TreeNode node in node2.Nodes)
                     {
-                        item.Stack = 0;
-                        continue;
+                        var item = (Item)node.Tag;
+                        var items = (Item[])node2.Tag;
+                        if (item.ItemID == 0)
+                        {
+                            item.Stack = 0;
+                            continue;
+                        }
+                        var maxstack = Constants.Items[item.ItemID].MaxStack;
+                        item.Stack = maxstack;
+                        node.Tag = item;
+                        items[item.Index] = item;
                     }
-                    var maxstack = Constants.Items[item.ItemID].MaxStack;
-                    item.Stack = maxstack;
-                    node.Tag = item;
-                    items[item.Index] = item;
-                }
 
                 DoTreeView(true);
             }
@@ -1243,9 +1237,9 @@ namespace TerrariaInvEdit.UI.Forms
                 if (treeInv.SelectedNode.Parent != null)
                     if (treeInv.SelectedNode.Tag is Item)
                     {
-                        var kpItm = (Item) lbItems.SelectedItem;
+                        var kpItm = (Item)lbItems.SelectedItem;
                         var item = kpItm.ItemName;
-                        var temp = (Item) treeInv.SelectedNode.Tag;
+                        var temp = (Item)treeInv.SelectedNode.Tag;
                         try
                         {
                             temp.ItemID = kpItm.ItemID;
@@ -1266,7 +1260,7 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void UpdateNodeItem()
         {
-            if (treeInv.SelectedNode != null && treeInv.SelectedNode.Parent != null && !Loading)
+            if (treeInv.SelectedNode?.Parent != null && !Loading)
             {
                 foreach (var node in treeInv.SelectedNodes)
                     switch (node.Name.ToLower())
@@ -1297,13 +1291,13 @@ namespace TerrariaInvEdit.UI.Forms
                 foreach (var node in treeInv.SelectedNodes)
                     if (node.Name == "armor" || node.Name == "item" || node.Name == "dye")
                     {
-                        var items = (Item[]) node.Parent.Tag;
-                        var item = (Item) node.Tag;
+                        var items = (Item[])node.Parent.Tag;
+                        var item = (Item)node.Tag;
                         item.ItemName = node.Text;
-                        var kpItm = (Item) lbItems.SelectedItem;
-                        var stack = (int) numStackSize.Value;
+                        var kpItm = (Item)lbItems.SelectedItem;
+                        var stack = (int)numStackSize.Value;
                         var max = Constants.Items[kpItm.ItemID].MaxStack;
-                        var prefix = (byte) comboPrefix.SelectedIndex;
+                        var prefix = (byte)comboPrefix.SelectedIndex;
 
 
                         if (kpItm.ItemID == 0)
@@ -1366,7 +1360,7 @@ namespace TerrariaInvEdit.UI.Forms
             // IMG PICTUREBOX
             if (lbItems.SelectedIndex != -1)
             {
-                var itm = (Item) lbItems.SelectedItem;
+                var itm = (Item)lbItems.SelectedItem;
 
                 if (itm.ItemID == 0)
                     numStackSize.Value = 0;
@@ -1433,21 +1427,21 @@ namespace TerrariaInvEdit.UI.Forms
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            ((TextBox) sender).Text = ((TextBox) sender).Text.Replace("^", string.Empty).Replace("=", string.Empty);
+            ((TextBox)sender).Text = ((TextBox)sender).Text.Replace("^", string.Empty).Replace("=", string.Empty);
             lbItems.BeginUpdate();
-            var DataSource = (BindingSource) lbItems.DataSource;
-            if (((TextBox) sender).Text != string.Empty)
+            var dataSource = (BindingSource)lbItems.DataSource;
+            if (((TextBox)sender).Text != string.Empty)
             {
-                var Matches = ((TextBox) sender).Text.Replace("^", string.Empty).Replace("=", string.Empty).Split(',');
-                var Filter = string.Empty;
+                var matches = ((TextBox)sender).Text.Replace("^", string.Empty).Replace("=", string.Empty).Split(',');
+                var filter = string.Empty;
 
-                for (var i = 0; i < Matches.Length; i++)
-                    Filter += string.Format("{0}ItemName ^ {1}", i == 0 ? string.Empty : " AND ", Matches[i]);
-                DataSource.Filter = Filter;
+                for (var i = 0; i < matches.Length; i++)
+                    filter += $"{(i == 0 ? string.Empty : " AND ")}ItemName ^ {matches[i]}";
+                dataSource.Filter = filter;
             }
             else
             {
-                DataSource.Filter = null;
+                dataSource.Filter = null;
             }
             lbItems.EndUpdate();
         }
@@ -1476,7 +1470,7 @@ namespace TerrariaInvEdit.UI.Forms
                 {
                     case "buff":
                         splitContainer1.Panel2Collapsed = false;
-                        var buff = (Buff) clickedNode.Tag;
+                        var buff = (Buff)clickedNode.Tag;
                         numTime.Value = buff.BuffTime / 60;
                         rtbDesc.Text = buff.BuffDescription;
                         var index = buff.BuffID;
@@ -1508,13 +1502,13 @@ namespace TerrariaInvEdit.UI.Forms
                 foreach (var node in treeBuff.SelectedNodes)
                     if (node.Name == "buff")
                     {
-                        var buffs = (Buff[]) node.Parent.Tag;
-                        var buff = (Buff) node.Tag;
+                        var buffs = (Buff[])node.Parent.Tag;
+                        var buff = (Buff)node.Tag;
                         Buff newBuff;
 
                         var buffname = comboBuff.SelectedItem.ToString();
                         var buffId = comboBuff.SelectedIndex;
-                        var time = (int) numTime.Value * 60;
+                        var time = (int)numTime.Value * 60;
                         if (buffname == "(Empty)")
                         {
                             buffname = "(Empty)";
@@ -1552,7 +1546,7 @@ namespace TerrariaInvEdit.UI.Forms
         {
             if (treeBuff.SelectedNode.Parent != null)
             {
-                var buff = (Buff) treeBuff.SelectedNode.Tag;
+                var buff = (Buff)treeBuff.SelectedNode.Tag;
                 buff.BuffTime = int.MaxValue / 60;
                 numTime.Value = buff.BuffTime;
                 treeBuff.SelectedNode.Tag = buff;
